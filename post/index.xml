@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts | Naga Karthik&#39;s Blog</title>
+    <link>https://naga-karthik.github.io/post/</link>
+      <atom:link href="https://naga-karthik.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <description>Posts</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jul 2020 18:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Posts</title>
+      <link>https://naga-karthik.github.io/post/</link>
+    </image>
+    
+    <item>
+      <title>Training Memory-Intensive Deep Learning Models with PyTorch’s Distributed Data Parallel</title>
+      <link>https://naga-karthik.github.io/post/pytorch-ddp/</link>
+      <pubDate>Wed, 01 Jul 2020 18:00:00 +0000</pubDate>
+      <guid>https://naga-karthik.github.io/post/pytorch-ddp/</guid>
+      <description>&lt;p&gt;This post is intended to serve as a comprehensive tutorial for training (very) deep and memory-intensive models using PyTorch’s parallel processing tools. My general observation about these official documentations is that they tell you &lt;em&gt;&lt;strong&gt;how&lt;/strong&gt;&lt;/em&gt; to run things, but when you stumble upon an error, you are on your own, hopping from GitHub&amp;rsquo;s issues and StackExchange&amp;rsquo;s frantic discussions in the hope of finding a quick-fix solution. It is precisely during these times I think that a &amp;ldquo;potential pitfalls&amp;rdquo; or &amp;ldquo;common errors&amp;rdquo; section (or even as an appendix) would do no harm and help save some precious time. I know this definitely sounds naïve but hear me out, things do get complicated when it involves coordinating between multiple GPUs. Keeping that in mind, here is an outline for this post: I start by explaining some fundamentals of PyTorch’s parallel processing tools, namely the DataParallel and DistributedDataParallel packages that I learned during my own research. As an example, I have provided a working example for training a Resnet101 model on CIFAR10 dataset with 4 GPUs on a single node. Finally, I discuss the 
+&lt;a href=&#34;#potential-pitfalls-and-commonly-encountered-bugs&#34;&gt;commonly encountered errors/bugs&lt;/a&gt; in a distributed training environment and some solutions for the same that worked for me (I really want this to be the take-away from this post!). Though not extensive, I have made a list of errors that I encountered and discuss the fixes. Although the example shown here is relatively simple, the same method can be applied to other applications involving NLP and generative modelling tasks also. Hope it helps!&lt;/p&gt;
+&lt;h3 id=&#34;why-bother-about-parallel-processing-in-the-first-place&#34;&gt;Why bother about Parallel Processing in the first place?&lt;/h3&gt;
+&lt;p&gt;Anyone with a single powerful enough NVIDIA GPU and some experience with PyTorch probably knows that models can be easily transferred to the GPU by simply using &lt;code&gt;.to()&lt;/code&gt; method. But, I believe that getting even a slightest hang of what PyTorch has to offer in parallel processing would go a long way. Instead of waiting patiently (or, impatiently) while your entire model runs on only one graphic card, why not “distribute” the load to multiple GPUs and make everything, well, &lt;em&gt;faster&lt;/em&gt;? A few examples where having a single GPU is not enough include, working with 3D medical images, complex GANs (CycleGAN, PG-GANs), or training an ImageNet model from scratch, etc. To put things in perspective here, 
+&lt;a href=&#34;https://news.developer.nvidia.com/openai-presents-gpt-3-a-175-billion-parameters-language-model/#:~:text=%E2%80%9CThe%20supercomputer%20developed%20for%20OpenAI,companies%20stated%20in%20a%20blog.&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;OpenAI&amp;rsquo;s GPT-3&lt;/a&gt; language model has about 175 billion parameters and has been trained using &lt;strong&gt;10,000 GPUs&lt;/strong&gt; (Yep, let that sink in for a moment).&lt;/p&gt;
+&lt;h3 id=&#34;distinction-between-dataparallel-and-distributeddataparallel&#34;&gt;Distinction between DataParallel and DistributedDataParallel&lt;/h3&gt;
+&lt;p&gt;It is worth mentioning that there are two ways by which the power of parallel processing can be harnessed. For the sake of brevity, I will be referring to &lt;code&gt;torch.nn.DataParallel&lt;/code&gt; as &lt;em&gt;DP&lt;/em&gt; and &lt;code&gt;torch.nn.parallel.DistributedDataParallel&lt;/code&gt; as &lt;em&gt;DDP&lt;/em&gt; from here on. First, DP is a simple model-wrapper which is quite elegant in its usage (as most of the heavy-lifting is done in the background) and it is quite simpler in terms of changing the code to reflect parallelism, compared to its counterpart, DDP. However, as easy as it sounds, there are some important caveats that prevent it from being used often.&lt;/p&gt;
+&lt;h3 id=&#34;dataparallel&#34;&gt;DataParallel&lt;/h3&gt;
+&lt;p&gt;DataParallel implements a module-level parallelism, meaning, given a module and some GPUs, the input is divided along the batch dimension while all other objects are replicated once per GPU. In short, it is a single-process, multi-GPU module wrapper.&lt;/p&gt;
+&lt;p&gt;To see why DDP is better (and faster), it is important to understand how DP works. A series of steps are performed under the hood involving both forward and backward passes. For the former, (1) The master GPU scatters the inputs (chunked along the batch dimension) to other GPUs, (2) the models and their parameters are replicated once per GPU, (3) the computations are performed in parallel, and (4) the master GPU gathers the outputs from each GPU. As for the latter, the loss gradients are computed on the master GPU. They are scattered (again) across all GPUs and backpropagated in parallel. Finally, the master GPU reduces all the gradients. This marks the end of one forward and backward pass in a DP training setup. Figure 1 shows these processes. For simplicity, I have made it look similar to the working of a neural network (succumbed to the 
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Availability_heuristic#:~:text=The%20availability%20heuristic%2C%20also%20known,%2C%20concept%2C%20method%20or%20decision.&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;availability heuristic&lt;/a&gt; there!)&lt;/p&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-left-panel---the-input-is-scattered-and-the-models-are-replicated-across-all-gpus-parallel-processing-is-done-and-the-master-gpu-gpu-0-gathers-all-the-resulting-outputs-right-panel---loss-gradients-are-computed-on-the-master-gpu-and-data-is-scattered-again-for-parallel-processing-finally-the-master-gpu-reduces-all-the-outputs-notice-the-number-of-times-the-gpu-0-is-called-in-action&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://naga-karthik.github.io/media/ddp-figures/bothPasses.png&#34; data-caption=&#34;Left panel - the input is scattered and the models are replicated across all GPUs. Parallel processing is done and the master GPU (GPU-0) gathers all the resulting outputs. Right Panel - Loss gradients are computed on the master GPU and data is scattered again for parallel processing. Finally, the master GPU reduces all the outputs. (Notice the number of times the GPU-0 is called in action)&#34;&gt;
+
+
+  &lt;img src=&#34;https://naga-karthik.github.io/media/ddp-figures/bothPasses.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption data-pre=&#34;Figure &#34; data-post=&#34;:&#34; class=&#34;numbered&#34;&gt;
+    Left panel - the input is scattered and the models are replicated across all GPUs. Parallel processing is done and the master GPU (GPU-0) gathers all the resulting outputs. Right Panel - Loss gradients are computed on the master GPU and data is scattered again for parallel processing. Finally, the master GPU reduces all the outputs. (Notice the number of times the GPU-0 is called in action)
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;This is all well and good but what happens in practice? DP suffers from a serious problem of imbalanced memory usage on the primary (master) GPU. Not to mention the fact that it becomes significantly slower performance-wise due to the additional overhead of transferring data (mainly tensors) to and from the master GPU. Let’s back up a little and understand what that means. As can be seen from the figure, it is the master GPU on which the loss gradients are computed and final outputs are gathered and summed. These inherent operations put a heavy load on it by consuming more memory. As a result, the hideous &lt;code&gt;CUDA: out-of-memory&lt;/code&gt; error is very commonly encountered.&lt;/p&gt;
+&lt;h3 id=&#34;distributeddataparallel&#34;&gt;DistributedDataParallel&lt;/h3&gt;
+&lt;p&gt;This is where we’ll get to the meat of this post. One of the major selling points of DDP is the fact that it works in multi-node, multi-GPU settings, unlike DP. To understand how, we need to borrow some definitions from torch’s &lt;code&gt;distributed&lt;/code&gt; module in general.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;torch.distributed&lt;/code&gt; package provides the necessary communication primitives for parallel processing across several nodes, processes, or compute cluster environments. DDP is essentially a wrapper that allows synchronous communication between these nodes. Note that it is different from the &lt;code&gt;torch.multiprocessing&lt;/code&gt; package in that it allows distributed training across a unified network-connected machines. Even though it is well-suited for multi-node and multi-GPU settings, it is recommended over DP for the following reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Reduced time spent between data transfers&lt;/strong&gt;: With distributed training, each process that is spawned has its own optimizer and performs its own optimization step. This prevents the time-consuming process of transferring tensors between nodes because each process has the same gradients.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;No additional overhead&lt;/strong&gt;: The communication overhead borne by the interpreter for copying models, multithreading and running processes from a master GPU is eliminated. This is especially a problem with large models having recurrent layers as they often crash the Python interpreter.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To realize this, synchronous communication between processes and nodes is paramount. Let us see how that is accomplished. The first step is to setup a distributed environment (more on it later). We need to define an IP address and a port so that our processes can communicate with each other, coordinated through a master. The processes have to run on top of &lt;em&gt;something&lt;/em&gt;, typically, a backend that supports (and optimizes) all point-to-point communications. The environment we referred to earlier, is defined by the following variables that help the spawned processes to be connected to the master and exchange information among them (or, in communication parlance, &lt;em&gt;handshake&lt;/em&gt; with them).&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Rank&lt;/strong&gt;: This decides whether a process is a “worker” or a “master”. Typically, a process with rank 0 is the de-facto master.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;World size&lt;/strong&gt;: It is just a fancy name for the total number of processes to be run. World size informs the master about the number of workers it has to wait for (for synchronization).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Master Address&lt;/strong&gt;: The IP address of the machine that can host the process with rank 0.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Master Port&lt;/strong&gt;: A free port on the machine hosting a process with rank 0.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Backend&lt;/strong&gt;: This provides a platform that supports communication between different processes. Different backend options are available depending on the task. For instance, the NCCL backend is used for parallel GPU computations because it provides optimized communication between CUDA tensors.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;An important feature of DDP that requires special mention is the &lt;em&gt;&lt;strong&gt;all-reduce&lt;/strong&gt;&lt;/em&gt; operation. Recall in the case of DP, the master GPU gathers the outputs for calculating gradients and scatters them again for parallel computing, only to be reduced by the master GPU again (notice the amount of data transfer). With DDP, instead of aggregating (gathering) the gradients on the master GPU, they are efficiently all-reduced across GPUs (see figure 2 for a clear idea of reducing operations). This way, each GPU (or, each process in our case) has its  own set of gradients to work with and the backward pass is also concurrently done without any performance bottleneck. In order for the model weights to be synchronized all the processes, the gradients are averaged.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-a-typical-reduce-operation&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://naga-karthik.github.io/media/ddp-figures/reduce.png&#34; data-caption=&#34;A typical Reduce operation.&#34;&gt;
+
+
+  &lt;img src=&#34;https://naga-karthik.github.io/media/ddp-figures/reduce.png&#34; alt=&#34;&#34; width=&#34;340&#34; &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    A typical Reduce operation.
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-a-typical-all-reduce-operation-notice-how-the-summed-outputs-are-used-in-both-operations-source-pytorch-docshttpspytorchorgtutorialsintermediatedist_tutohtml&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://naga-karthik.github.io/media/ddp-figures/all_reduce.png&#34; data-caption=&#34;A typical All-Reduce operation. Notice how the summed outputs are used in both operations. Source: &amp;lt;a href=&amp;#34;https://pytorch.org/tutorials/intermediate/dist_tuto.html&amp;#34;&amp;gt;PyTorch Docs&amp;lt;/a&amp;gt;&#34;&gt;
+
+
+  &lt;img src=&#34;https://naga-karthik.github.io/media/ddp-figures/all_reduce.png&#34; alt=&#34;&#34; width=&#34;340&#34; &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption data-pre=&#34;Figure &#34; data-post=&#34;:&#34; class=&#34;numbered&#34;&gt;
+    A typical All-Reduce operation. Notice how the summed outputs are used in both operations. Source: &lt;a href=&#34;https://pytorch.org/tutorials/intermediate/dist_tuto.html&#34;&gt;PyTorch Docs&lt;/a&gt;
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Now you know what distributed training means and why should you use DDP instead of DP. Let us see a few important code snippets below that lets us perform distributed training. Note: In the interest of the length of this post,  I will not be posting entire code for training the ResNet101 model (it is available on my GitHub), rather, my focus would be on these snippets that are essential for wrapping the model around the distributed package &lt;em&gt;&lt;strong&gt;AND&lt;/strong&gt;&lt;/em&gt; the section on the 
+&lt;a href=&#34;#potential-pitfalls-and-commonly-encountered-bugs&#34;&gt;typical errors/bugs encountered&lt;/a&gt; that comes right after. There are many resources out there that show how to write code that performs distributed training, but I believe it is much more important to have an idea about the common errors and the tricks to solve them. Also, it is worth mentioning that a single process can be used to control multiple GPUs, but that is slower than using a single process per GPU. I will be demonstrating an example only for the latter.&lt;/p&gt;
+&lt;h4 id=&#34;importing-packages&#34;&gt;Importing packages&lt;/h4&gt;
+&lt;p&gt;The following are the additional packages required for distributed training:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-py&#34;&gt;import torch.distributed as dist
+import torch.multiprocessing as mp
+from torch.nn.parallel import DistributedDataParallel as DDP
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;setting-up-the-distributed-environment&#34;&gt;Setting up the distributed environment&lt;/h4&gt;
+&lt;p&gt;The code snippet below is all it takes to initialize a distributed training environment. I have included additional comments for further understanding.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-py&#34;&gt;def setup(rank, world_size):
+    os.environ[&#39;MASTER_ADDR&#39;] = &#39;localhost&#39;
+    os.environ[&#39;MASTER_PORT&#39;] = &#39;12355&#39;
+    # initialize the process group
+    dist.init_process_group(backend=&amp;quot;nccl&amp;quot;, rank=rank, world_size=world_size)
+    # this function is responsible for synchronizing and successful communication across multiple processes involving multiple GPUs.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;cleaning-up-after-training-optional-but-considered-as-a-good-practice&#34;&gt;Cleaning up after training (optional, but considered as a good practice)&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-py&#34;&gt;def cleanup():
+    dist.destroy_process_group()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;loading-the-data&#34;&gt;Loading the data&lt;/h4&gt;
+&lt;p&gt;In distributed training, the data is loaded differently compared to the standard way (&lt;code&gt;torch.utils.data.DataLoader&lt;/code&gt;). This is to account for the fact that the data must be divided among the GPUs. More importantly, by passing a &lt;code&gt;DistributedSampler&lt;/code&gt; instance to the &lt;code&gt;DataLoader&lt;/code&gt; it is ensured that each process loads an exclusive subset of the entire training data.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-py&#34;&gt;
+training_set = torchvision.datasets.CIFAR10(root=&#39;./data&#39;, train=True, download=True, transform=transforms_train)
+
+# torch.distributed&#39;s own data loader method which loads the data such that they are non-overlapping
+train_data_sampler = torch.utils.data.distributed.DistributedSampler(dataset=training_set, 
+								     num_replicas=args.world_size, rank=rank)
+trainLoader = torch.utils.data.DataLoader(dataset=training_set, batch_size=args.batch_size,
+                                              shuffle=False, num_workers=4, pin_memory=True,
+                                              sampler=train_data_sampler)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That&amp;rsquo;s it! The code snippets above show the only considerable changes needed for wrapping your model around the distributed package. And now for the final act.&lt;/p&gt;
+&lt;h3 id=&#34;potential-pitfalls-and-commonly-encountered-bugs&#34;&gt;Potential pitfalls and commonly encountered bugs&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Setting a random seed for all GPUs&lt;/strong&gt; - Having read this far, you know that synchronized communication between multiple processes is the cornerstone of distributed training. Therefore, to ensure that gradients across all processes are same, a seed value must be set initially. This ensures that the (replicated) models are initialized with the same weights.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Batch size greater than number of GPUs&lt;/strong&gt; - While this makes sense intuitively because the greater the batch size the more it will be divided across all GPUs, it is also important to be cognizant of the GPU memory. Large models do not allow the batch sizes to go beyond 2 or 4, in which case having more GPUs prevents them from being utilized fully.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Saving a model on only one local rank&lt;/strong&gt; - It is highly recommended that when checkpointing a model, its parameters are saved on one local rank (preferably on the de-facto master (rank 0)). This is particularly important when a model has more than 1 network (typically in GANs with generator and discriminator networks). It is easy to wrap models around the distributed package and forget about how they are saved during training (happened with me, had to learn it the hard way). Recall that each process has its own model and optimizer and they are all coordinated through a master IP address and a port. So, when a generic method for saving models is used, chances are that those saved models are being overwritten by multiple processes, hence, corrupting the information and &lt;em&gt;making them irretrievable&lt;/em&gt;. Here is how the error looks when loaded using &lt;code&gt;torch.load()&lt;/code&gt;:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;RuntimeError: storage has wrong size: expected -7659745797817883467 got 512&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-py&#34;&gt;# The generic method of saving models (say, at the end of every epoch)
+torch.save(model.state_dict(), save_path)	# this generally results in a RuntimeError as shown above.
+
+# A work-around for it:
+if (rank == 0):
+    torch.save(model.state_dict(), save_path)	# this ensures that only one process saves the model to save_path.	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Including “main()” function block in the code&lt;/strong&gt; - It is important that your code contains the &amp;ldquo;main()&amp;rdquo; block in it. Due to the way the new processes are spawned, the child process needs to be able to import the script containing the target function. Wrapping the main part of the application in a check for &amp;ldquo;main()&amp;rdquo; ensures that it is not run recursively in each child as the module is imported.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Issue with loading checkpointed models&lt;/strong&gt; When the saved models are loaded to resume training from the last saved epoch, there is a chance of encountering the hideous “CUDA: out-of-memory” error. The quick-fix solution for this is to first load the models on the CPU (using &lt;code&gt;map_location=’cpu’&lt;/code&gt; argument in &lt;code&gt;torch.load()&lt;/code&gt;) and then transfer those loaded models onto the GPU (using &lt;code&gt;.to(device)&lt;/code&gt;). The reason as to why this works is not entirely known. It seems that it has got something to do with PyTorch’s caching allocator for GPUs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Location of where the model is loaded&lt;/strong&gt; - When a model is saved using &lt;code&gt;nn.DataParallel&lt;/code&gt; or &lt;code&gt;nn.parallel.DistributedDataParallel&lt;/code&gt;, it is stored in module. But, typically we don’t load the model using &lt;code&gt;DataParallel&lt;/code&gt; and this throws an error. There are two ways of solving this: (1) a simple way is wrap the model around DP just for the sake of loading, or (2) create a new dict file by removing the &lt;code&gt;module.&lt;/code&gt; prefix and load it in the generic way using &lt;code&gt;torch.load()&lt;/code&gt;. Here is a snippet for the same:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;parallel_state_dict_model = torch.load(&#39;path/to/your/model&#39;, map_location=&#39;cuda&#39;)
+state_dict_model = OrderedDict() 
+for k, v in parallel_state_dict_model.items():
+  name = k[7:]    # removing &amp;quot;module.&amp;quot;
+  state_dict_model[name] = v
+# Loading the updated (renamed) model
+model.load_state_dict(state_dict_A2B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you know what to do when this error pops up:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;KeyError: &amp;lsquo;unexpected key &amp;ldquo;module. &amp;hellip;.. .weight&amp;rdquo; in state_dict&amp;rsquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This concludes my post on distributed training with PyTorch. It has been an incredibly long post. Thank you for going through it. Your patience is highly appreciated. One thing I did not mention earlier that this post is motivated by my fascination with the sheer amount of computational power that GPUs bring to the table. They are certainly the drivers of today&amp;rsquo;s machine learning research. I personally have witnessed a massive decrease in the total training times.&lt;/p&gt;
+&lt;p&gt;A working example in its entirety is available 
+&lt;a href=&#34;https://github.com/naga-karthik/ddp-resnet-cifar&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;. This post also inspired by a few other posts on the same topic (see references). I definitely recommend going through them as they are probably much better in some aspects.&lt;/p&gt;
+&lt;h3 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h3&gt;
+&lt;p&gt;Many thanks to 
+&lt;a href=&#34;https://karanpraharaj.github.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Karan Praharaj&lt;/a&gt; for his suggestions on earlier versions of this post. Special thanks to 
+&lt;a href=&#34;https://www.computecanada.ca/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Compute Canada&lt;/a&gt; for their valuable resources without which this post would have not been possible.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Edit&lt;/strong&gt; - Thanks to Raphaël Royer-Rivard for his suggestion on including a code snippet at pitfall #3. You can find him 
+&lt;a href=&#34;https://www.polymtl.ca/liv4d/equipe&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;References:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://pytorch.org/tutorials/intermediate/dist_tuto.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Seb Arnold’s brilliant tutorial on distributed applications with PyTorch&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://pytorch.org/tutorials/intermediate/ddp_tutorial.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Getting started with DistributedDataParallel&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://medium.com/huggingface/training-larger-batches-practical-tips-on-1-gpu-multi-gpu-distributed-setups-ec88c3e51255&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Training Neural Nets on Larger Batches&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://levelup.gitconnected.com/quick-primer-on-distributed-training-with-pytorch-ad362d8aa032&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Quick Primer on Distributed Training with PyTorch&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://yangkky.github.io/2019/07/08/distributed-pytorch-tutorial.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Distributed data parallel training in Pytorch&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linear Regression with PyTorch</title>
+      <link>https://naga-karthik.github.io/post/pytorch-linear-regression/</link>
+      <pubDate>Fri, 01 Feb 2019 18:00:00 +0000</pubDate>
+      <guid>https://naga-karthik.github.io/post/pytorch-linear-regression/</guid>
+      <description>&lt;p&gt;This is just a simple introduction to coding in PyTorch. We’ll build a two-dimensional linear regression model and see how the model performs by observing the graphs at the output. So, let’s begin!&lt;/p&gt;
+&lt;p&gt;There are a million ways to create a linear regression model if we have the data readily available (or downloaded from somewhere). In that case, we will not be able to take advantage of PyTorch’s Dataset class which allows us to create datasets of our own and test them (interesting, right?). Therefore, in this article, I will be showing how to create an artificial dataset using the Dataset class and run our model. PyTorch also has this cool feature of letting users build their own custom modules of any kind, be it linear regression model, logistic regression model, neural network model etc. However, it goes without saying that there are in-built functions also for the same purposes. Enough of the jargon now, let’s dive into the code!&lt;/p&gt;
+&lt;p&gt;First off, we will begin by importing all the necessary packages to build our model.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import numpy as np
+import torch
+from torch import nn, optim
+from torch.utils.data import Dataset, DataLoader
+torch.manual_seed(1)
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;Dataset&lt;/em&gt; is the class that contains the artificial dataset (in the form of a subclass within the main class) that we
+will define and &lt;em&gt;DataLoader&lt;/em&gt; is responsible for loading the dataset. For creating our custom modules, the nn module must
+be imported and for choosing the optimizer of our choice, the optim module must be used.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Creating the artificial dataset
+class Data2d(Dataset):
+    
+    # Constructor
+    def __init__(self):
+        self.x = torch.zeros(20,2)
+        self.x[:,0] = torch.arange(-1,1,0.1)
+        self.x[:,1] = torch.arange(-1,1,0.1)
+        
+        self.w = torch.tensor([[1.0], [1.0]])
+        self.b = 1
+        self.f = torch.mm(self.x, self.w) + self.b
+        
+        self.y = self.f + 0.1*torch.randn((self.x.shape[0],1))
+        self.len = self.x.shape[0]
+    
+    # Getter
+    def __getitem__(self, index):
+        return self.x[index], self.y[index]
+    
+    # Getting the length
+    def __len__(self):
+        return self.len
+# Instantiation of the class  
+my_data = Data2d()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We have randomly chosen any set of values of &lt;strong&gt;x&lt;/strong&gt; , which I have assumed to a 2D matrix (for no particular reason,
+it can be anything!). The slope and bias &lt;strong&gt;w&lt;/strong&gt; and &lt;strong&gt;b&lt;/strong&gt; respectively are defined. The equation of a line is written
+and stored in the variable &lt;strong&gt;f&lt;/strong&gt; . I have added some random Gaussian noise to the equation with a standard deviation of
+0.1 so that it isn’t just a straight line.&lt;/p&gt;
+&lt;p&gt;Next up in the code is a function we have defined that plots the 2D plane for better visualization purposes.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Defining a function for plotting the plane
+def plane2D(model,dataset,n=0):
+      
+    w1 = model.state_dict()[&#39;linear.weight&#39;].numpy()[0][0]
+    w2 = model.state_dict()[&#39;linear.weight&#39;].numpy()[0][1]
+    b = model.state_dict()[&#39;linear.bias&#39;].numpy()
+    
+    x1 = dataset.x[:,0].view(-1,1).numpy()
+    x2 = dataset.x[:,1].view(-1,1).numpy()
+    y = dataset.y.numpy()
+    X,Y = np.meshgrid(np.arange(x1.min(),x1.max(),0.05),np.arange(x2.min(), x2.max(), 0.05))
+    
+    yhat = w1*X + w2*Y + b
+    
+    # plotting
+    fig = plt.figure()
+    ax = fig.gca(projection = &#39;3d&#39;)
+    
+    ax.plot(x1[:,0], x2[:,0], y[:,0], &#39;ro&#39;, label = &#39;y&#39;)
+    ax.plot_surface(X,Y,yhat)
+    ax.set_xlabel(&#39;x&#39;)
+    ax.set_ylabel(&#39;y&#39;)
+    ax.set_zlabel(&#39;z&#39;)
+    ax.legend()
+    plt.title(&#39;Estimated plane iteration: &#39;+ str(n))
+    plt.show()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;PyTorch defines the parameters, that is, the slope and the bias randomly. We are storing those values by calling the
+&lt;strong&gt;model.state_dict()&lt;/strong&gt; function and explicitly mentioning them by &lt;strong&gt;linear.weight&lt;/strong&gt; and &lt;strong&gt;linear.bias&lt;/strong&gt;. We will be
+passing the artificial dataset as an argument to the plane2D function, from where the data is stored in the corresponding
+variables. The remaining part of the code is just the standard way of plotting 3D data.&lt;/p&gt;
+&lt;p&gt;Note: The &lt;strong&gt;.numpy()&lt;/strong&gt; function is used wherever there is a need of converting the data from a tensor (PyTorch processes
+data in the form of tensors) to a numpy array.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Creating a linear regression model
+class lin_reg(nn.Module):
+
+    def __init__(self, in_feat, out_feat):
+        super(lin_reg, self).__init__()
+        self.linear = nn.Linear(in_feat, out_feat)
+        
+    def forward(self,x):
+        yhat = self.linear(x)
+        return yhat
+# Instantiation of an object
+model = lin_reg(2,1)
+print(&amp;quot;The parameters: &amp;quot;, model.state_dict())
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;nn.Module&lt;/strong&gt; is the base class for all modules in PyTorch. All the models that we define must be subclasses within this
+class. The &lt;strong&gt;super()&lt;/strong&gt; function returns a proxy object that delegates the methods calls to a class. The in-built function
+&lt;strong&gt;nn.Linear&lt;/strong&gt; is used which just takes the number of input and output features as arguments and simply applies the linear
+transformation. It can be looked at in this way, the &lt;strong&gt;&lt;strong&gt;init&lt;/strong&gt;()&lt;/strong&gt; function is where the model variables are initialized
+and the &lt;strong&gt;forward()&lt;/strong&gt; function is where these variables are used to predict the output.&lt;/p&gt;
+&lt;p&gt;Now, all that’s left is to define the loss function, the optimizer and then train our model!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Parameters
+criterion = nn.MSELoss()
+optimizer = optim.SGD(model.parameters(), lr = 0.01) 
+# Training data object which loads the artificial data
+trainloader = DataLoader(dataset = my_data, batch_size = 2)
+# Training the model
+Loss = []  # variable for storing losses after each epoch
+epochs = 100
+print(&#39;Before training:&#39;)
+plane2D(model, my_data)
+def train_model(epochs):
+    for epoch in range(epochs):
+        for x,y in trainloader:
+            yhat = model(x)
+            loss = criterion(yhat,y)
+            Loss.append(loss.item())
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+# Calling the training function          
+train_model(epochs)
+print(&amp;quot;After training: &amp;quot;)
+plane2D(model, my_data, epochs)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I have decided to use the mean-squared error as the loss function. The in-built function is used here, however, a
+function can be created which does the same.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def criterion(yhat,y):
+    out = torch.mean((yhat - y)**2)
+    return out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The optimizer used is Stochastic Gradient Descent (SGD). The model parameters must be passed as the argument and an
+appropriate learning rate must be defined. The way in which PyTorch calculates the error and updates the weights is that,
+firstly, all the gradients are set to zero using &lt;strong&gt;.zero_grad()&lt;/strong&gt; function, then the derivatives are calculated using the
+&lt;strong&gt;.backward()&lt;/strong&gt; function. Finally, the weights are updated using the &lt;strong&gt;.step()&lt;/strong&gt; function. The loss after the completion of each
+epoch is stored which helps in plotting (after the training is completed). It is just to see how the model performed
+during the training.&lt;/p&gt;
+&lt;p&gt;And that’s it! I hope that this introductory tutorial in PyTorch helps. Please feel free to comment/suggest anything
+related to the above article!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

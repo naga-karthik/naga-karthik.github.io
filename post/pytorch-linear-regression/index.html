@@ -1,0 +1,1146 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="E M V Naga Karthik">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A simple example on how to perform linear regression using PyTorch.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://naga-karthik.github.io/post/pytorch-linear-regression/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://naga-karthik.github.io/post/pytorch-linear-regression/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@naga_karthik7">
+  <meta property="twitter:creator" content="@naga_karthik7">
+  
+  <meta property="og:site_name" content="Naga Karthik&#39;s Blog">
+  <meta property="og:url" content="https://naga-karthik.github.io/post/pytorch-linear-regression/">
+  <meta property="og:title" content="Linear Regression with PyTorch | Naga Karthik&#39;s Blog">
+  <meta property="og:description" content="A simple example on how to perform linear regression using PyTorch."><meta property="og:image" content="https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-02-01T18:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-02-01T18:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://naga-karthik.github.io/post/pytorch-linear-regression/"
+  },
+  "headline": "Linear Regression with PyTorch",
+  
+  "datePublished": "2019-02-01T18:00:00Z",
+  "dateModified": "2019-02-01T18:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "E M V Naga Karthik"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Naga Karthik's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "A simple example on how to perform linear regression using PyTorch."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Linear Regression with PyTorch | Naga Karthik&#39;s Blog</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
+
+  
+  
+  
+    <script>window.staDarkLightChooser = true;</script>
+  
+  
+    <script>const isSiteThemeDark = false;</script>
+  
+  
+  <script src="/js/load-theme.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Naga Karthik&#39;s Blog</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Naga Karthik&#39;s Blog</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Blog Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/cv_new.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Linear Regression with PyTorch</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Feb 1, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/pytorch-linear-regression/#disqus_thread"></a>
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>This is just a simple introduction to coding in PyTorch. We’ll build a two-dimensional linear regression model and see how the model performs by observing the graphs at the output. So, let’s begin!</p>
+<p>There are a million ways to create a linear regression model if we have the data readily available (or downloaded from somewhere). In that case, we will not be able to take advantage of PyTorch’s Dataset class which allows us to create datasets of our own and test them (interesting, right?). Therefore, in this article, I will be showing how to create an artificial dataset using the Dataset class and run our model. PyTorch also has this cool feature of letting users build their own custom modules of any kind, be it linear regression model, logistic regression model, neural network model etc. However, it goes without saying that there are in-built functions also for the same purposes. Enough of the jargon now, let’s dive into the code!</p>
+<p>First off, we will begin by importing all the necessary packages to build our model.</p>
+<pre><code class="language-python">import numpy as np
+import torch
+from torch import nn, optim
+from torch.utils.data import Dataset, DataLoader
+torch.manual_seed(1)
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+</code></pre>
+<p><em>Dataset</em> is the class that contains the artificial dataset (in the form of a subclass within the main class) that we
+will define and <em>DataLoader</em> is responsible for loading the dataset. For creating our custom modules, the nn module must
+be imported and for choosing the optimizer of our choice, the optim module must be used.</p>
+<pre><code class="language-python"># Creating the artificial dataset
+class Data2d(Dataset):
+    
+    # Constructor
+    def __init__(self):
+        self.x = torch.zeros(20,2)
+        self.x[:,0] = torch.arange(-1,1,0.1)
+        self.x[:,1] = torch.arange(-1,1,0.1)
+        
+        self.w = torch.tensor([[1.0], [1.0]])
+        self.b = 1
+        self.f = torch.mm(self.x, self.w) + self.b
+        
+        self.y = self.f + 0.1*torch.randn((self.x.shape[0],1))
+        self.len = self.x.shape[0]
+    
+    # Getter
+    def __getitem__(self, index):
+        return self.x[index], self.y[index]
+    
+    # Getting the length
+    def __len__(self):
+        return self.len
+# Instantiation of the class  
+my_data = Data2d()
+
+</code></pre>
+<p>We have randomly chosen any set of values of <strong>x</strong> , which I have assumed to a 2D matrix (for no particular reason,
+it can be anything!). The slope and bias <strong>w</strong> and <strong>b</strong> respectively are defined. The equation of a line is written
+and stored in the variable <strong>f</strong> . I have added some random Gaussian noise to the equation with a standard deviation of
+0.1 so that it isn’t just a straight line.</p>
+<p>Next up in the code is a function we have defined that plots the 2D plane for better visualization purposes.</p>
+<pre><code class="language-python"># Defining a function for plotting the plane
+def plane2D(model,dataset,n=0):
+      
+    w1 = model.state_dict()['linear.weight'].numpy()[0][0]
+    w2 = model.state_dict()['linear.weight'].numpy()[0][1]
+    b = model.state_dict()['linear.bias'].numpy()
+    
+    x1 = dataset.x[:,0].view(-1,1).numpy()
+    x2 = dataset.x[:,1].view(-1,1).numpy()
+    y = dataset.y.numpy()
+    X,Y = np.meshgrid(np.arange(x1.min(),x1.max(),0.05),np.arange(x2.min(), x2.max(), 0.05))
+    
+    yhat = w1*X + w2*Y + b
+    
+    # plotting
+    fig = plt.figure()
+    ax = fig.gca(projection = '3d')
+    
+    ax.plot(x1[:,0], x2[:,0], y[:,0], 'ro', label = 'y')
+    ax.plot_surface(X,Y,yhat)
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel('z')
+    ax.legend()
+    plt.title('Estimated plane iteration: '+ str(n))
+    plt.show()
+
+</code></pre>
+<p>PyTorch defines the parameters, that is, the slope and the bias randomly. We are storing those values by calling the
+<strong>model.state_dict()</strong> function and explicitly mentioning them by <strong>linear.weight</strong> and <strong>linear.bias</strong>. We will be
+passing the artificial dataset as an argument to the plane2D function, from where the data is stored in the corresponding
+variables. The remaining part of the code is just the standard way of plotting 3D data.</p>
+<p>Note: The <strong>.numpy()</strong> function is used wherever there is a need of converting the data from a tensor (PyTorch processes
+data in the form of tensors) to a numpy array.</p>
+<pre><code class="language-python"># Creating a linear regression model
+class lin_reg(nn.Module):
+
+    def __init__(self, in_feat, out_feat):
+        super(lin_reg, self).__init__()
+        self.linear = nn.Linear(in_feat, out_feat)
+        
+    def forward(self,x):
+        yhat = self.linear(x)
+        return yhat
+# Instantiation of an object
+model = lin_reg(2,1)
+print(&quot;The parameters: &quot;, model.state_dict())
+
+</code></pre>
+<p><strong>nn.Module</strong> is the base class for all modules in PyTorch. All the models that we define must be subclasses within this
+class. The <strong>super()</strong> function returns a proxy object that delegates the methods calls to a class. The in-built function
+<strong>nn.Linear</strong> is used which just takes the number of input and output features as arguments and simply applies the linear
+transformation. It can be looked at in this way, the <strong><strong>init</strong>()</strong> function is where the model variables are initialized
+and the <strong>forward()</strong> function is where these variables are used to predict the output.</p>
+<p>Now, all that’s left is to define the loss function, the optimizer and then train our model!</p>
+<pre><code class="language-python"># Parameters
+criterion = nn.MSELoss()
+optimizer = optim.SGD(model.parameters(), lr = 0.01) 
+# Training data object which loads the artificial data
+trainloader = DataLoader(dataset = my_data, batch_size = 2)
+# Training the model
+Loss = []  # variable for storing losses after each epoch
+epochs = 100
+print('Before training:')
+plane2D(model, my_data)
+def train_model(epochs):
+    for epoch in range(epochs):
+        for x,y in trainloader:
+            yhat = model(x)
+            loss = criterion(yhat,y)
+            Loss.append(loss.item())
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+# Calling the training function          
+train_model(epochs)
+print(&quot;After training: &quot;)
+plane2D(model, my_data, epochs)
+
+</code></pre>
+<p>I have decided to use the mean-squared error as the loss function. The in-built function is used here, however, a
+function can be created which does the same.</p>
+<pre><code class="language-python">def criterion(yhat,y):
+    out = torch.mean((yhat - y)**2)
+    return out
+</code></pre>
+<p>The optimizer used is Stochastic Gradient Descent (SGD). The model parameters must be passed as the argument and an
+appropriate learning rate must be defined. The way in which PyTorch calculates the error and updates the weights is that,
+firstly, all the gradients are set to zero using <strong>.zero_grad()</strong> function, then the derivatives are calculated using the
+<strong>.backward()</strong> function. Finally, the weights are updated using the <strong>.step()</strong> function. The loss after the completion of each
+epoch is stored which helps in plotting (after the training is completed). It is just to see how the model performed
+during the training.</p>
+<p>And that’s it! I hope that this introductory tutorial in PyTorch helps. Please feel free to comment/suggest anything
+related to the above article!</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/machine-learning/">Machine Learning</a>
+  
+  <a class="badge badge-light" href="/tag/pytorch/">PyTorch</a>
+  
+  <a class="badge badge-light" href="/tag/linear-regression/">Linear Regression</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "NagaKarthik" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/pytorch-ddp/">Training Memory-Intensive Deep Learning Models with PyTorch’s Distributed Data Parallel</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" integrity="sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/latex.min.js"></script>
+        
+      
+
+    
+
+    
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://NagaKarthik.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic Website Builder</a>
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
