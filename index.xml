@@ -5,12 +5,20 @@
     <link>https://naga-karthik.github.io/</link>
       <atom:link href="https://naga-karthik.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Naga&#39;s Blog</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020 Naga&#39;s Blog</copyright><lastBuildDate>Wed, 01 Jul 2020 18:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020 Naga&#39;s Blog</copyright><lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Naga&#39;s Blog</title>
       <link>https://naga-karthik.github.io/</link>
     </image>
+    
+    <item>
+      <title>Three-dimensional Segmentation of the Scoliotic Spine from MRI using Unsupervised Volume-based MR-CT Synthesis</title>
+      <link>https://naga-karthik.github.io/publication/spie-scoliotic-segmentation/</link>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://naga-karthik.github.io/publication/spie-scoliotic-segmentation/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Training Memory-Intensive Deep Learning Models with PyTorch’s Distributed Data Parallel</title>

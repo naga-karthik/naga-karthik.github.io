@@ -30,10 +30,10 @@
   
     
   
-  <meta name="description" content="Master&#39;s Student">
+  <meta name="description" content="Vertebral bone segmentation from magnetic resonance (MR) images is a challenging task. Due to the inherent nature of the modality to emphasize soft tissues of the body, common thresholding algorithms are ineffective in detecting bones in MR images. On the other hand, it is relatively easier to segment bones from CT images because of the high contrast between bones and the surrounding regions. For this reason, we perform a cross-modality synthesis between MR and CT domains for simple thresholding-based segmentation of the vertebral bones. However, this implicitly assumes the availability of paired MR-CT data, which is rare, especially in the case of scoliotic patients. In this paper, we present a completely unsupervised, fully three-dimensional (3D) cross-modality synthesis method for segmenting scoliotic spines. A 3D CycleGAN model is trained for an unpaired volume-to-volume translation across MR and CT domains. Then, the Otsu thresholding algorithm is applied to the synthesized CT volumes for easy segmentation of the vertebral bones. The resulting segmentation is used to reconstruct a 3D model of the spine. We validate our method on 28 scoliotic vertebrae in 3 patients by computing the point-to-surface mean distance between the landmark points for each vertebra obtained from pre-operative X-rays and the surface of the segmented vertebra. Our study results in a mean error of 3.41 $\pm$ 1.06 mm. Based on qualitative and quantitative results, we conclude that our method is able to obtain a good segmentation and 3D reconstruction of scoliotic spines, all after training from unpaired data in an unsupervised manner.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://naga-karthik.github.io/author/catherine-laporte/">
+  <link rel="alternate" hreflang="en-us" href="https://naga-karthik.github.io/publication/spie-scoliotic-segmentation/">
 
   
 
@@ -283,14 +283,12 @@
   
 
   
-  <link rel="alternate" href="/author/catherine-laporte/index.xml" type="application/rss+xml" title="Naga&#39;s Blog">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://naga-karthik.github.io/author/catherine-laporte/">
+  <link rel="canonical" href="https://naga-karthik.github.io/publication/spie-scoliotic-segmentation/">
 
   
   
@@ -309,18 +307,61 @@
   <meta property="twitter:creator" content="@naga_karthik7">
   
   <meta property="og:site_name" content="Naga&#39;s Blog">
-  <meta property="og:url" content="https://naga-karthik.github.io/author/catherine-laporte/">
-  <meta property="og:title" content="Catherine Laporte | Naga&#39;s Blog">
-  <meta property="og:description" content="Master&#39;s Student"><meta property="og:image" content="https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:url" content="https://naga-karthik.github.io/publication/spie-scoliotic-segmentation/">
+  <meta property="og:title" content="Three-dimensional Segmentation of the Scoliotic Spine from MRI using Unsupervised Volume-based MR-CT Synthesis | Naga&#39;s Blog">
+  <meta property="og:description" content="Vertebral bone segmentation from magnetic resonance (MR) images is a challenging task. Due to the inherent nature of the modality to emphasize soft tissues of the body, common thresholding algorithms are ineffective in detecting bones in MR images. On the other hand, it is relatively easier to segment bones from CT images because of the high contrast between bones and the surrounding regions. For this reason, we perform a cross-modality synthesis between MR and CT domains for simple thresholding-based segmentation of the vertebral bones. However, this implicitly assumes the availability of paired MR-CT data, which is rare, especially in the case of scoliotic patients. In this paper, we present a completely unsupervised, fully three-dimensional (3D) cross-modality synthesis method for segmenting scoliotic spines. A 3D CycleGAN model is trained for an unpaired volume-to-volume translation across MR and CT domains. Then, the Otsu thresholding algorithm is applied to the synthesized CT volumes for easy segmentation of the vertebral bones. The resulting segmentation is used to reconstruct a 3D model of the spine. We validate our method on 28 scoliotic vertebrae in 3 patients by computing the point-to-surface mean distance between the landmark points for each vertebra obtained from pre-operative X-rays and the surface of the segmented vertebra. Our study results in a mean error of 3.41 $\pm$ 1.06 mm. Based on qualitative and quantitative results, we conclude that our method is able to obtain a good segmentation and 3D reconstruction of scoliotic spines, all after training from unpaired data in an unsupervised manner."><meta property="og:image" content="https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-10-12T00:00:00&#43;00:00">
+    
+      <meta property="article:published_time" content="2020-10-12T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-10-12T00:00:00&#43;00:00">
   
 
   
 
 
+    
 
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://naga-karthik.github.io/publication/spie-scoliotic-segmentation/"
+  },
+  "headline": "Three-dimensional Segmentation of the Scoliotic Spine from MRI using Unsupervised Volume-based MR-CT Synthesis",
+  
+  "datePublished": "2020-10-12T00:00:00Z",
+  "dateModified": "2020-10-12T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "E M V Naga Karthik"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Naga's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Vertebral bone segmentation from magnetic resonance (MR) images is a challenging task. Due to the inherent nature of the modality to emphasize soft tissues of the body, common thresholding algorithms are ineffective in detecting bones in MR images. On the other hand, it is relatively easier to segment bones from CT images because of the high contrast between bones and the surrounding regions. For this reason, we perform a cross-modality synthesis between MR and CT domains for simple thresholding-based segmentation of the vertebral bones. However, this implicitly assumes the availability of paired MR-CT data, which is rare, especially in the case of scoliotic patients. In this paper, we present a completely unsupervised, fully three-dimensional (3D) cross-modality synthesis method for segmenting scoliotic spines. A 3D CycleGAN model is trained for an unpaired volume-to-volume translation across MR and CT domains. Then, the Otsu thresholding algorithm is applied to the synthesized CT volumes for easy segmentation of the vertebral bones. The resulting segmentation is used to reconstruct a 3D model of the spine. We validate our method on 28 scoliotic vertebrae in 3 patients by computing the point-to-surface mean distance between the landmark points for each vertebra obtained from pre-operative X-rays and the surface of the segmented vertebra. Our study results in a mean error of 3.41 $\\pm$ 1.06 mm. Based on qualitative and quantitative results, we conclude that our method is able to obtain a good segmentation and 3D reconstruction of scoliotic spines, all after training from unpaired data in an unsupervised manner."
+}
+</script>
+
+  
 
   
 
@@ -328,10 +369,13 @@
   
 
 
+  
 
 
 
-  <title>Catherine Laporte | Naga&#39;s Blog</title>
+
+
+  <title>Three-dimensional Segmentation of the Scoliotic Spine from MRI using Unsupervised Volume-based MR-CT Synthesis | Naga&#39;s Blog</title>
 
 </head>
 
@@ -643,40 +687,419 @@
 
 
 
+  <div class="pub">
+
   
 
 
 
-<div class="universal-wrapper pt-3">
-  <h1>Catherine Laporte</h1>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Three-dimensional Segmentation of the Scoliotic Spine from MRI using Unsupervised Volume-based MR-CT Synthesis</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span ><a href="/author/e-m-v-naga-karthik/">E M V Naga Karthik</a></span>, <span >Catherine Laporte</span>, <span >Farida Cheriet</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    October 2020
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/publication/spie-scoliotic-segmentation/#disqus_thread"></a>
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1" href="https://arxiv.org/pdf/2011.14005.pdf" target="_blank" rel="noopener">
+  PDF
+</a>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
 </div>
 
 
-<section id="profile-page" class="pt-5">
-  <div class="container">
+  
+</div>
+
+
+
+  <div class="article-container">
+
     
+    <h3>Abstract</h3>
+    <p class="pub-abstract">Vertebral bone segmentation from magnetic resonance (MR) images is a challenging task. Due to the inherent nature of the modality to emphasize soft tissues of the body, common thresholding algorithms are ineffective in detecting bones in MR images. On the other hand, it is relatively easier to segment bones from CT images because of the high contrast between bones and the surrounding regions. For this reason, we perform a cross-modality synthesis between MR and CT domains for simple thresholding-based segmentation of the vertebral bones. However, this implicitly assumes the availability of paired MR-CT data, which is rare, especially in the case of scoliotic patients. In this paper, we present a completely unsupervised, fully three-dimensional (3D) cross-modality synthesis method for segmenting scoliotic spines. A 3D CycleGAN model is trained for an unpaired volume-to-volume translation across MR and CT domains. Then, the Otsu thresholding algorithm is applied to the synthesized CT volumes for easy segmentation of the vertebral bones. The resulting segmentation is used to reconstruct a 3D model of the spine. We validate our method on 28 scoliotic vertebrae in 3 patients by computing the point-to-surface mean distance between the landmark points for each vertebra obtained from pre-operative X-rays and the surface of the segmented vertebra. Our study results in a mean error of 3.41 $\pm$ 1.06 mm. Based on qualitative and quantitative results, we conclude that our method is able to obtain a good segmentation and 3D reconstruction of scoliotic spines, all after training from unpaired data in an unsupervised manner.</p>
     
 
     
-    
-    
-    <div class="article-widget content-widget-hr">
-      <h3>Latest</h3>
-      <ul>
-        
-        <li>
-          <a href="/publication/spie-scoliotic-segmentation/">Three-dimensional Segmentation of the Scoliotic Spine from MRI using Unsupervised Volume-based MR-CT Synthesis</a>
-        </li>
-        
-        <li>
-          <a href="/publication/jasa-automatic-tongue-surface/">Automatic Tongue Surface Extraction from Three-Dimensional Vocal Tract Images</a>
-        </li>
-        
-      </ul>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-12 col-md-3 pub-row-heading">Type</div>
+          <div class="col-12 col-md-9">
+            
+            
+            <a href="/publication/#1">
+              Conference paper
+            </a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
     </div>
+    <div class="d-md-none space-below"></div>
     
-  </div>
+
+    
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-12 col-md-3 pub-row-heading">Publication</div>
+          <div class="col-12 col-md-9">In <em>Proceedings of the SPIE Medical Imaging Conference 2021</em> San Diego, CA.</div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="d-md-none space-below"></div>
+    
+
+    <div class="space-below"></div>
+
+    <div class="article-style"></div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/source-themes/">Source Themes</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/e-m-v-naga-karthik/avatar_hu4dd6546a81b3c07c7f3a52ddca1731b6_284550_270x270_fill_q90_lanczos_center.jpg" alt="E M V Naga Karthik">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://naga-karthik.github.io/">E M V Naga Karthik</a></h5>
+        <h6 class="card-subtitle">Master&rsquo;s Student</h6>
+        <p class="card-text">Musings of a sports fanatic who happens to be interested in research.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:emvnagakarthik@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/naga-karthik-7b1559174/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.ca/citations?user=ZryIoMMAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/naga-karthik" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/naga_karthik7" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/cv_new.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+    
+    
+
+
+
+
+
+  
+
+
+  
+    
+    
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "NagaKarthik" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
 </section>
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/publication/jasa-automatic-tongue-surface/">Automatic Tongue Surface Extraction from Three-Dimensional Vocal Tract Images</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</div>
 
       
 

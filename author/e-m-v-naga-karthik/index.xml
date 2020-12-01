@@ -5,12 +5,20 @@
     <link>https://naga-karthik.github.io/author/e-m-v-naga-karthik/</link>
       <atom:link href="https://naga-karthik.github.io/author/e-m-v-naga-karthik/index.xml" rel="self" type="application/rss+xml" />
     <description>E M V Naga Karthik</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020 Naga&#39;s Blog</copyright><lastBuildDate>Mon, 16 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020 Naga&#39;s Blog</copyright><lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://naga-karthik.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>E M V Naga Karthik</title>
       <link>https://naga-karthik.github.io/author/e-m-v-naga-karthik/</link>
     </image>
+    
+    <item>
+      <title>Three-dimensional Segmentation of the Scoliotic Spine from MRI using Unsupervised Volume-based MR-CT Synthesis</title>
+      <link>https://naga-karthik.github.io/publication/spie-scoliotic-segmentation/</link>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://naga-karthik.github.io/publication/spie-scoliotic-segmentation/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Automatic Tongue Surface Extraction from Three-Dimensional Vocal Tract Images</title>
