@@ -3,6 +3,7 @@ github_users:
 
 github_repos:
   - ivadomed/model_seg_sci
+  - ivadomed/utilities
   - brainhack-school2023/nagakarthik_project
   - naga-karthik/continual-learning-ms
   - naga-karthik/3D-CycleGAN-with-Uncertainty
