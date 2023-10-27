@@ -2,6 +2,7 @@ github_users:
   - naga-karthik
 
 github_repos:
+  - sct-pipeline/contrast-agnostic-softseg-spinalcord
   - ivadomed/model_seg_sci
   - ivadomed/utilities
   - brainhack-school2023/nagakarthik_project
