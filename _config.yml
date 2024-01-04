@@ -3,9 +3,9 @@
 # -----------------------------------------------------------------------------
 
 title: blank # the website title (if blank, full name will be used instead)
-first_name: Naga
+first_name: Naga Karthik
 middle_name: 
-last_name: Karthik
+last_name: Enamundram
 email: emvnagakarthik@gmail.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
@@ -79,7 +79,7 @@ telegram_username: # your Telegram user name
 scholar_userid: ZryIoMMAAAAJ # your Google Scholar ID
 semanticscholar_id: # your Semantic Scholar ID
 whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
-orcid_id: # your ORCID ID
+orcid_id: 0000-0003-2940-5514 # your ORCID ID
 medium_username: # your Medium username
 quora_username: # your Quora username
 publons_id: # your ID on Publons
@@ -269,8 +269,8 @@ display_categories: ['books', 'resources'] # these categories will be displayed 
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Naga Karthik]
-  first_name: [Enamundram]
+  last_name: [Enamundram]
+  first_name: [Naga Karthik]
 
   style: apa
   locale: en
