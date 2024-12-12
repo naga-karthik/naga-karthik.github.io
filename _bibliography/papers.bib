@@ -4,37 +4,61 @@
 
 % ----------------- 2024 -----------------
 
-@inproceedings{
-karthik2024contrastagnostic,
-title={Contrast-agnostic Spinal Cord Segmentation: A Comparative Study of ConvNets and Vision Transformers},
-author={Enamundram Naga Karthik and Sandrine Bedard and Jan Valosek and Sarath Chandar and Julien Cohen-Adad},
-booktitle={Medical Imaging with Deep Learning},
-year={2024},
-url={https://openreview.net/forum?id=n6D25aqdV3},
-bibtex_show={true},
-abbr={MIDL Short},
-selected={true},
-pdf={https://openreview.net/forum?id=n6D25aqdV3},
-code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord/tree/nk/midl-short},
+@article{doi:10.1148/ryai.240005,
+  bibtex_show={true},
+  abbr={Radiology: AI},
+  selected={true},
+  pdf={https://doi.org/10.1148/ryai.240005},
+  code={https://github.com/ivadomed/model_seg_sci/},
+  author = {Naga Karthik, Enamundram and Valo\v{s}ek, Jan and Smith, Andrew C. and Pfyffer, Dario and Schading-Sassenhausen, Simon and Farner, Lynn and Weber, Kenneth A. and Freund, Patrick and Cohen-Adad, Julien},
+  title = {SCIseg: Automatic Segmentation of Intramedullary Lesions in Spinal Cord Injury on T2-weighted MRI Scans},
+  journal = {Radiology: Artificial Intelligence},
+  volume = {7},
+  number = {1},
+  pages = {e240005},
+  year = {2025},
+  doi = {10.1148/ryai.240005},
+  note={*shared first authorship},
+  URL = {https://doi.org/10.1148/ryai.240005},
+  abstract = { 
+  Purpose: To develop a deep learning tool for the automatic segmentation of the spinal cord and 
+  intramedullary lesions in spinal cord injury (SCI) on T2-weighted MRI scans. 
+  Materials and Methods: This retrospective study included MRI data acquired between July 2002 and 
+  February 2023. The data consisted of T2-weighted MRI scans acquired using different scanner manufacturers 
+  with various image resolutions (isotropic and anisotropic) and orientations (axial and sagittal). 
+  Patients had different lesion etiologies (traumatic, ischemic, and hemorrhagic) and lesion locations 
+  across the cervical, thoracic, and lumbar spine. A deep learning model, SCIseg (which is open source and 
+  accessible through the Spinal Cord Toolbox, version 6.2 and above), was trained in a three-phase process 
+  involving active learning for the automatic segmentation of intramedullary SCI lesions and the spinal cord. 
+  The segmentations from the proposed model were visually and quantitatively compared with those from three 
+  other open-source methods (PropSeg, DeepSeg, and contrast-agnostic, all part of the Spinal Cord Toolbox). 
+  The Wilcoxon signed rank test was used to compare quantitative MRI biomarkers of SCI (lesion volume, 
+  lesion length, and maximal axial damage ratio) derived from the manual reference standard lesion masks and 
+  biomarkers obtained automatically with SCIseg segmentations. 
+  Results: The study included 191 patients with SCI (mean age, 48.1 years ± 17.9 [SD]; 142 [74\%] male patients). 
+  SCIseg achieved a mean Dice score of 0.92 ± 0.07 and 0.61 ± 0.27 for spinal cord and SCI lesion 
+  segmentation, respectively. There was no evidence of a difference between lesion length (P = .42) and 
+  maximal axial damage ratio (P = .16) computed from manually annotated lesions and the lesion segmentations 
+  obtained using SCIseg. 
+  Conclusion: SCIseg accurately segmented intramedullary lesions on a diverse 
+  dataset of T2-weighted MRI scans and automatically extracted clinically relevant lesion characteristics. 
+  Keywords: Spinal Cord, Trauma, Segmentation, MR Imaging, Supervised Learning, 
+  Convolutional Neural Network (CNN) Published under a CC BY 4.0 license. }
 }
 
-@article {Naga Karthik2024.01.03.24300794,
-	author = {Enamundram Naga Karthik* and Jan Valosek* and Andrew C. Smith and Dario Pfyffer and Simon Schading-Sassenhausen and Lynn Farner and Kenneth A. Weber II and Patrick Freund and Julien Cohen-Adad},
-	title = {SCIseg: Automatic Segmentation of T2-weighted Intramedullary Lesions in Spinal Cord Injury},
-	elocation-id = {2024.01.03.24300794},
-	year = {2024},
-	doi = {10.1101/2024.01.03.24300794},
-	publisher = {Cold Spring Harbor Laboratory Press},
-	URL = {https://www.medrxiv.org/content/early/2024/04/21/2024.01.03.24300794},
-	eprint = {https://www.medrxiv.org/content/early/2024/04/21/2024.01.03.24300794.full.pdf},
-	journal = {medRxiv},
+@inproceedings{karthik2024contrastagnostic,
+  title={Contrast-agnostic Spinal Cord Segmentation: A Comparative Study of ConvNets and Vision Transformers},
+  author={Enamundram Naga Karthik and Sandrine Bedard and Jan Valosek and Sarath Chandar and Julien Cohen-Adad},
+  booktitle={Medical Imaging with Deep Learning},
+  year={2024},
+  url={https://openreview.net/forum?id=n6D25aqdV3},
   bibtex_show={true},
-  abbr={medRxiv},
+  abbr={MIDL Short},
   selected={true},
-  pdf={https://www.medrxiv.org/content/10.1101/2024.01.03.24300794v2.full.pdf},
-  code={https://github.com/ivadomed/model_seg_sci},
-  note={*shared first authorship}},
+  pdf={https://openreview.net/forum?id=n6D25aqdV3},
+  code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord/tree/nk/midl-short},
 }
+
 
 % ----------------- 2023 -----------------
 
