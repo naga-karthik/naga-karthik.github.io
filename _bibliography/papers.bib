@@ -57,6 +57,21 @@
   selected={true},
   pdf={https://openreview.net/forum?id=n6D25aqdV3},
   code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord/tree/nk/midl-short},
+  abstract={
+  The cross-sectional area (CSA) of the spinal cord (SC) computed from its segmentation is a relevant 
+  clinical biomarker for the diagnosis and monitoring of cord compression and atrophy. One key limitation 
+  of existing automatic methods is that their SC segmentations depend on the MRI contrast, resulting in 
+  different CSA across contrasts. Furthermore, these methods rely on CNNs, leaving a gap in the literature 
+  for exploring the performance of modern deep learning (DL) architectures. In this study, we extend our 
+  recent work \cite{Bdard2023TowardsCS} by evaluating the contrast-agnostic SC segmentation capabilities 
+  of different classes of DL architectures, namely, ConvNeXt, vision transformers (ViTs), and hierarchical 
+  ViTs. We compared 7 different DL models using the open-source \textit{Spine Generic} Database of healthy 
+  participants () consisting of 6 MRI contrasts per participant. Given a fixed dataset size, our results 
+  show that CNNs produce robust SC segmentations across contrasts, followed by ConvNeXt, and hierarchical 
+  ViTs. This suggests that: (i) inductive biases such as learning hierarchical feature reprensentations 
+  via pooling (common in CNNs) are crucial for good performance on SC segmentation, and (ii) hierarchical 
+  ViTs that incorporate several CNN-based priors can perform similarly to pure CNN-based models.
+  },
 }
 
 
