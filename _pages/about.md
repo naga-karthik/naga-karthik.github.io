@@ -1,6 +1,6 @@
 ---
 layout: about
-title: About
+title: About Me
 permalink: /
 subtitle:  # <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
 
@@ -19,11 +19,9 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hi there! I'm Naga, a fourth-year PhD student at [NeuroPoly](https://neuro.polymtl.ca), Polytechnique Montréal. I'm also affiliated to [Mila - Québec AI Institute](https://mila.quebec/en). My research focuses on developing deep learning-based methods for medical image analysis, with a particular interest in spinal cord imaging using real-world clinical data. My current projects include contrast-agnostic segmentation of the spinal cord and the segmentation of lesions in spinal cord injury and multiple sclerosis (MS). I have also experimented with generative modelling, in particular, training GANs for cross-modality MR-CT synthesis and diffusion models for synthesizing spinal cord lesions. In the past, I have also worked on the application of continual/lifelong learning methods for the segmentation of brain MS lesions. 
+Hi there! I'm Naga, a fourth-year PhD student at [NeuroPoly](https://neuro.polymtl.ca), Polytechnique Montréal. I'm also affiliated to [Mila - Québec AI Institute](https://mila.quebec/en). My research focuses on developing deep learning-based methods for medical image analysis, with a particular interest in spinal cord imaging using real-world clinical data. My current projects include contrast-agnostic segmentation of the spinal cord and the segmentation of lesions in spinal cord injury and multiple sclerosis (MS). I have also experimented with generative modelling, in particular, training GANs for cross-modality MR-CT synthesis and diffusion models for synthesizing spinal cord lesions. In the past, I have also worked on the application of continual/lifelong learning methods for the segmentation of brain MS lesions. Please head to my [Google Scholar](https://scholar.google.com/citations?user=ZryIoMMAAAAJ&hl=en) profile for a complete list of my publications.
 
 <!-- One thing I really care about in research is reproducibility. The code for the projects I am heavily involved in can be found on my [GitHub](https://naga-karthik.github.io/repositories/). I use GitHub's Releases to provide specific versions of the code used in my papers (see [here](https://github.com/naga-karthik/continual-learning-ms/releases/tag/v1.0) for an example). -->
-
-<!-- To add: talk about software development and packaging and link them -->
 
 When I am not working, you'll find me either running :running:, hiking :mountain:, or reading :book:. 
 
