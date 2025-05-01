@@ -269,8 +269,8 @@ display_categories: ['books', 'resources'] # these categories will be displayed 
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Enamundram]
-  first_name: [Naga Karthik]
+  last_name: [Naga Karthik]
+  first_name: [Enamundram]
 
   style: apa
   locale: en
