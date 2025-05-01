@@ -155,6 +155,15 @@
   volume={},
   number={},
   pages={1-7},
+  abstract={
+  Uncertainty estimations through approximate Bayesian inference provide interesting insights to deep neural networks' behavior. 
+  In unsupervised learning tasks, where expert labels are unavailable, it becomes ever more important to critique the model through 
+  uncertainties. This paper presents a proof-of-concept for generalizing the aleatoric and epistemic uncertainties in unsupervised 
+  MR-CT synthesis of scoliotic spines. A novel adaptation of the cycle-consistency constraint in CycleGAN is proposed such that the 
+  model predicts the aleatoric uncertainty maps in addition to the standard volume-to-volume translation between Magnetic Resonance 
+  (MR) and Computed Tomography (CT) data. Ablation experiments were performed to understand uncertainty estimation as an implicit 
+  regularizer and a measure of the model's confidence. The aleatoric uncertainty helps in distinguishing between the bone and soft-tissue 
+  regions in CT and MR data during translation, while the epistemic uncertainty provides interpretable information to the user for downstream tasks.},
   doi={https://doi.org/10.1109/OJEMB.2023.3262965},
   pdf={https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10086579},
   code={https://github.com/naga-karthik/3D-CycleGAN-with-Uncertainty},
@@ -167,8 +176,6 @@
 % ----------------- 2022 -----------------
 
 @article{melba:2022:031:lemay,
-    bibtex_show={true},
-    abbr={MELBA},
     title = "Label fusion and training methods for reliable representation of inter-rater uncertainty",
     author = "Lemay, Andreanne and Gros, Charley and Naga Karthik, Enamundram and Cohen-Adad, Julien",
     journal = "Machine Learning for Biomedical Imaging",
@@ -177,9 +184,28 @@
     year = "2022",
     pages = "1--27",
     issn = "2766-905X",
+    abstract = "Medical tasks are prone to inter-rater variability due to multiple factors such as image quality, professional experience and training, 
+    or guideline clarity. Training deep learning networks with annotations from multiple raters is a common practice that mitigates the model’s bias 
+    towards a single expert. Reliable models generating calibrated outputs and reflecting the inter-rater disagreement are key to the integration of 
+    artificial intelligence in clinical practice. Various methods exist to take into account different expert labels. We focus on comparing three label 
+    fusion methods: STAPLE, average of the rater’s segmentation, and random sampling of each rater’s segmentation during training. Each label fusion method 
+    is studied using both the conventional training framework and the recently published SoftSeg framework that limits information loss by treating the segmentation 
+    task as a regression. Our results, across 10 data splittings on two public datasets (spinal cord gray matter challenge, and multiple sclerosis brain lesion 
+    segmentation), indicate that SoftSeg models, regardless of the ground truth fusion method, had better calibration and preservation of the inter-rater rater 
+    variability compared with their conventional counterparts without impacting the segmentation performance. Conventional models, i.e., trained with a Dice loss, 
+    with binary inputs, and sigmoid/softmax final activate, were overconfident and underestimated the uncertainty associated with inter-rater variability. Conversely, 
+    fusing labels by averaging with the SoftSeg framework led to underconfident outputs and overestimation of the rater disagreement. In terms of segmentation performance, 
+    the best label fusion method was different for the two datasets studied, indicating this parameter might be task-dependent. However, SoftSeg had segmentation 
+    performance systematically superior or equal to the conventionally trained models and had the best calibration and preservation of the inter-rater variability. 
+    SoftSeg has a low computational cost and performed similarly in terms of uncertainty to ensembles which require multiple models and forward passes. 
+    Our code is available at https://ivadomed.org.",
     doi = "https://doi.org/10.59275/j.melba.2022-db5c",
     url = "https://melba-journal.org/2022:031",
-    pdf={https://www.melba-journal.org/pdf/2022:031.pdf}
+    pdf={https://www.melba-journal.org/pdf/2022:031.pdf},
+    selected={true},
+    bibtex_show={true},
+    abbr={MELBA},
+    preview={melba_uncertainty_softseg.png}
 }
 
 
