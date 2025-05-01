@@ -1,25 +1,57 @@
 ---
 ---
 
+% ----------------- 2025 -----------------
+@article{BEDARD2025103473,
+  title = {Towards contrast-agnostic soft segmentation of the spinal cord},
+  journal = {Medical Image Analysis},
+  volume = {101},
+  pages = {103473},
+  year = {2025},
+  issn = {1361-8415},
+  doi = {https://doi.org/10.1016/j.media.2025.103473},
+  url = {https://www.sciencedirect.com/science/article/pii/S1361841525000210},
+  author = {Sandrine Bédard* and Naga Karthik*, Enamundram and Charidimos Tsagkas and Emanuele Pravatà and Cristina Granziera and Andrew Smith and Kenneth Arnold {Weber II} and Julien Cohen-Adad},
+  keywords = {Spinal cord, MRI, Contrasts, Segmentation, Deep learning, Soft labels, Partial volume effect},
+  abstract = {
+  Spinal cord segmentation is clinically relevant and is notably used to compute spinal cord cross-sectional area (CSA) 
+  for the diagnosis and monitoring of cord compression or neurodegenerative diseases such as multiple sclerosis. While 
+  several semi and automatic methods exist, one key limitation remains: the segmentation depends on the MRI contrast, 
+  resulting in different CSA across contrasts. This is partly due to the varying appearance of the boundary between the 
+  spinal cord and the cerebrospinal fluid that depends on the sequence and acquisition parameters. This contrast-sensitive 
+  CSA adds variability in multi-center studies where protocols can vary, reducing the sensitivity to detect subtle atrophies. 
+  Moreover, existing methods enhance the CSA variability by training one model per contrast, while also producing binary masks 
+  that do not account for partial volume effects. In this work, we present a deep learning-based method that produces soft 
+  segmentations of the spinal cord that are stable across MRI contrasts. Using the Spine Generic Public Database of healthy 
+  participants (n=267; contrasts=6), we first generated participant-wise soft ground truth (GT) by averaging the binary 
+  segmentations across all 6 contrasts. These soft GT, along with aggressive data augmentation and a regression-based loss 
+  function, were then used to train a U-Net model for spinal cord segmentation. We evaluated our model against state-of-the-art 
+  methods and performed ablation studies involving different GT mask types, loss functions, contrast-specific models and 
+  domain generalization methods. Our results show that using the soft average segmentations along with a regression loss 
+  function reduces CSA variability (p<0.05, Wilcoxon signed-rank test). The proposed spinal cord segmentation model generalizes 
+  better than the state-of-the-art contrast-specific methods amongst unseen datasets, vendors, contrasts, and pathologies 
+  (compression, lesions), while accounting for partial volume effects. Our model is integrated into the Spinal Cord Toolbox (v6.2 and higher).},
+  bibtex_show={true},
+  abbr={MedIA},
+  pdf={https://www.sciencedirect.com/science/article/pii/S1361841525000210},
+  code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord},
+  selected={true},
+  note={*shared first authorship},
+  preview={contrast_agnostic_v2.jpg}
+}
+
 
 % ----------------- 2024 -----------------
 
 @article{doi:10.1148/ryai.240005,
-  bibtex_show={true},
-  abbr={Radiology: AI},
-  selected={true},
-  pdf={https://doi.org/10.1148/ryai.240005},
-  code={https://github.com/ivadomed/model_seg_sci/},
-  author = {Naga Karthik, Enamundram and Valo\v{s}ek, Jan and Smith, Andrew C. and Pfyffer, Dario and Schading-Sassenhausen, Simon and Farner, Lynn and Weber, Kenneth A. and Freund, Patrick and Cohen-Adad, Julien},
+  author = {Naga Karthik*, Enamundram and Valo\v{s}ek*, Jan and Smith, Andrew C. and Pfyffer, Dario and Schading-Sassenhausen, Simon and Farner, Lynn and Weber, Kenneth A. and Freund, Patrick and Cohen-Adad, Julien},
   title = {SCIseg: Automatic Segmentation of Intramedullary Lesions in Spinal Cord Injury on T2-weighted MRI Scans},
   journal = {Radiology: Artificial Intelligence},
   volume = {7},
   number = {1},
   pages = {e240005},
   year = {2025},
-  doi = {10.1148/ryai.240005},
   note={*shared first authorship},
-  URL = {https://doi.org/10.1148/ryai.240005},
   abstract = { 
   Purpose: To develop a deep learning tool for the automatic segmentation of the spinal cord and 
   intramedullary lesions in spinal cord injury (SCI) on T2-weighted MRI scans. 
@@ -43,7 +75,13 @@
   Conclusion: SCIseg accurately segmented intramedullary lesions on a diverse 
   dataset of T2-weighted MRI scans and automatically extracted clinically relevant lesion characteristics. 
   Keywords: Spinal Cord, Trauma, Segmentation, MR Imaging, Supervised Learning, 
-  Convolutional Neural Network (CNN) Published under a CC BY 4.0 license. }
+  Convolutional Neural Network (CNN) Published under a CC BY 4.0 license. },
+  bibtex_show={true},
+  abbr={Radiology: AI},
+  selected={true},
+  pdf={https://doi.org/10.1148/ryai.240005},
+  code={https://github.com/ivadomed/model_seg_sci/},
+  preview={sciseg.jpeg},
 }
 
 @inproceedings{karthik2024contrastagnostic,
@@ -77,24 +115,7 @@
 
 % ----------------- 2023 -----------------
 
-@misc{bédard2023contrastagnostic,
-  title={Towards contrast-agnostic soft segmentation of the spinal cord}, 
-  author={Sandrine Bédard* and Naga Karthik Enamundram* and Charidimos Tsagkas and Emanuele Pravatà and Cristina Granziera and Andrew Smith and Kenneth Arnold Weber II and Julien Cohen-Adad},
-  year={2023},
-  eprint={2310.15402},
-  archivePrefix={arXiv},
-  primaryClass={eess.IV},
-  bibtex_show={true},
-  abbr={arXiv},
-  pdf={https://arxiv.org/pdf/2310.15402.pdf},
-  code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord},
-  selected={true},
-  note={*shared first authorship}
-}
-
 @ARTICLE{10086579,
-  bibtex_show={true},
-  abbr={IEEE OJEMB},
   author={Naga Karthik, Enamundram and Cheriet, Farida and Laporte, Catherine},
   journal={IEEE Open Journal of Engineering in Medicine and Biology}, 
   title={Uncertainty Estimation in Unsupervised MR-CT Synthesis of Scoliotic Spines}, 
@@ -102,9 +123,13 @@
   volume={},
   number={},
   pages={1-7},
-  doi={10.1109/OJEMB.2023.3262965},
+  doi={https://doi.org/10.1109/OJEMB.2023.3262965},
   pdf={https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10086579},
-  code={https://github.com/naga-karthik/3D-CycleGAN-with-Uncertainty}
+  code={https://github.com/naga-karthik/3D-CycleGAN-with-Uncertainty},
+  selected={true},
+  bibtex_show={true},
+  abbr={IEEE OJEMB},
+  preview={ojemb_uncertainty_scoliosis.jpg}
 }
 
 % ----------------- 2022 -----------------
