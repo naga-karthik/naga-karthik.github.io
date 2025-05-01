@@ -4,3 +4,11 @@
 
 "PhysRev":
   url: https://journals.aps.org/
+
+"MedIA":
+  url: https://www.sciencedirect.com/journal/medical-image-analysis
+  color: "#004d00" # dark green 
+
+"Radiology: AI":
+  url: https://pubs.rsna.org/journal/ai
+  color: "#ab7343"
