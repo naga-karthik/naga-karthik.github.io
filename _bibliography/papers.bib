@@ -3,6 +3,37 @@
 
 % ----------------- 2025 -----------------
 
+@article{karthik2025monitoringmorphometricdriftlifelong,
+      title={Monitoring morphometric drift in lifelong learning segmentation of the spinal cord}, 
+      author={Naga Karthik, Enamundram and Sandrine Bédard and Jan Valošek and ... and 50 authors and ... and Sarath Chandar and Julien Cohen-Adad},
+      year={2025},
+      eprint={2505.01364},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2505.01364},
+      journal = {arXiv},
+      abstract = {
+        Morphometric measures derived from spinal cord segmentations can serve as diagnostic and prognostic biomarkers in neurological diseases and injuries affecting 
+        the spinal cord. While robust, automatic segmentation methods to a wide variety of contrasts and pathologies have been developed over the past few years, whether 
+        their predictions are stable as the model is updated using new datasets has not been assessed. This is particularly important for deriving normative values from 
+        healthy participants. In this study, we present a spinal cord segmentation model trained on a multisite (n=75) dataset, including 9 different MRI contrasts and 
+        several spinal cord pathologies. We also introduce a lifelong learning framework to automatically monitor the morphometric drift as the model is updated using 
+        additional datasets. The framework is triggered by an automatic GitHub Actions workflow every time a new model is created, recording the morphometric values derived 
+        from the model's predictions over time. As a real-world application of the proposed framework, we employed the spinal cord segmentation model to update a recently-introduced 
+        normative database of healthy participants containing commonly used measures of spinal cord morphometry. Results showed that: (i) our model outperforms previous versions 
+        and pathology-specific models on challenging lumbar spinal cord cases, achieving an average Dice score of 0.95 ± 0.03; (ii) the automatic workflow for monitoring morphometric 
+        drift provides a quick feedback loop for developing future segmentation models; and (iii) the scaling factor required to update the database of morphometric measures is nearly 
+        constant among slices across the given vertebral levels, showing minimum drift between the current and previous versions of the model monitored by the framework. The model is 
+        freely available in Spinal Cord Toolbox v7.0.},
+      bibtex_show={true},
+      abbr={arXiv},
+      code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord},
+      pdf={https://arxiv.org/pdf/2505.01364},
+      selected={true},
+      preview={lifelong_ca_final.png}
+}
+
+
 @article {NagaKarthik2025.01.22.25320959,
 	author = {Naga Karthik*, Enamundram and McGinnis*, Julian and Wurm, Ricarda and Ruehling, Sebastian and Graf, Robert and Valosek, Jan and Benveniste, Pierre-Louis and Lauerer, Markus and Talbott, Jason and Bakshi, Rohit and Tauhid, Shahamat and Shepherd, Timothy and Berthele, Achim and Zimmer, Claus and Hemmer, Bernhard and Rueckert, Daniel and Wiestler, Benedikt and Kirschke, Jan S. and Cohen-Adad, Julien and M{\"u}hlau, Mark},
 	title = {Automatic segmentation of spinal cord lesions in MS: A robust tool for axial T2-weighted MRI scans},

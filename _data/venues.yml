@@ -17,3 +17,8 @@
   url: https://www.medrxiv.org/
   # blue
   color: "#003DA5"
+
+"arXiv":
+  url: https://arxiv.org/
+  # red
+  color: "#b31b1b"
