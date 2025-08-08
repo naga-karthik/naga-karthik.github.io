@@ -5,6 +5,10 @@
 "PhysRev":
   url: https://journals.aps.org/
 
+"Imaging Neuroscience":
+  url: https://direct.mit.edu/imag
+  color: "#4daf4a" # light green 
+
 "MedIA":
   url: https://www.sciencedirect.com/journal/medical-image-analysis
   color: "#004d00" # dark green 
