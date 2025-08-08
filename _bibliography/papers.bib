@@ -3,6 +3,35 @@
 
 % ----------------- 2025 -----------------
 
+@misc{hindel2025dynamic,
+      title={Dynamic Robot-Assisted Surgery with Hierarchical Class-Incremental Semantic Segmentation}, 
+      author={Julia Hindel and Ema Mekic and Naga Karthik, Enamundram and Rohit Mohan and Daniele Cattaneo and Maria Kalweit and Abhinav Valada},
+      year={2025},
+      eprint={2508.01713},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2508.01713}, 
+      journal = {MICCAI},
+      abstract = {Robot-assisted surgeries rely on accurate and real-time scene understanding to safely guide surgical instruments. 
+      However, segmentation models trained on static datasets face key limitations when deployed in these dynamic and evolving 
+      surgical environments. Class-incremental semantic segmentation (CISS) allows models to continually adapt to new classes while 
+      avoiding catastrophic forgetting of prior knowledge, without training on previous data. In this work, we build upon the 
+      recently introduced Taxonomy-Oriented Poincaré-regularized Incremental Class Segmentation (TOPICS) approach and propose an 
+      enhanced variant, termed TOPICS+, specifically tailored for robust segmentation of surgical scenes. Concretely, we incorporate 
+      the Dice loss into the hierarchical loss formulation to handle strong class imbalances, introduce hierarchical pseudo-labeling, 
+      and design tailored label taxonomies for robotic surgery environments. We also propose six novel CISS benchmarks designed for 
+      robotic surgery environments including multiple incremental steps and several semantic categories to emulate realistic 
+      class-incremental settings in surgical environments. In addition, we introduce a refined set of labels with more than 
+      144 classes on the Syn-Mediverse synthetic dataset, hosted online as an evaluation benchmark. We make the code and trained 
+      models publicly available.},
+      bibtex_show={true},
+      abbr={MICCAI},
+      code={https://topics.cs.uni-freiburg.de},
+      pdf={https://arxiv.org/pdf/2508.01713},
+      selected={false},
+      preview={lifelong_ca_final.png}
+}
+
 @article{karthik2025monitoringmorphometricdriftlifelong,
       title={Monitoring morphometric drift in lifelong learning segmentation of the spinal cord}, 
       author={Naga Karthik, Enamundram and Sandrine Bédard and Jan Valošek and ... and 50 authors and ... and Sarath Chandar and Julien Cohen-Adad},
@@ -34,34 +63,44 @@
 }
 
 
-@article {NagaKarthik2025.01.22.25320959,
-	author = {Naga Karthik*, Enamundram and McGinnis*, Julian and Wurm, Ricarda and Ruehling, Sebastian and Graf, Robert and Valosek, Jan and Benveniste, Pierre-Louis and Lauerer, Markus and Talbott, Jason and Bakshi, Rohit and Tauhid, Shahamat and Shepherd, Timothy and Berthele, Achim and Zimmer, Claus and Hemmer, Bernhard and Rueckert, Daniel and Wiestler, Benedikt and Kirschke, Jan S. and Cohen-Adad, Julien and M{\"u}hlau, Mark},
-	title = {Automatic segmentation of spinal cord lesions in MS: A robust tool for axial T2-weighted MRI scans},
-	elocation-id = {2025.01.22.25320959},
-	year = {2025},
-	doi = {https://doi.org/10.1101/2025.01.22.25320959},
-	publisher = {Cold Spring Harbor Laboratory Press},
-	abstract = {Deep learning models have achieved remarkable success in segmenting brain white matter lesions in multiple sclerosis (MS), becoming integral to both research and clinical workflows. 
-  While brain lesions have gained significant attention in MS research, the involvement of spinal cord lesions in MS is relatively understudied. This is largely owed to the variability in spinal 
-  cord magnetic resonance imaging (MRI) acquisition protocols, high individual anatomical differences, the complex morphology and size of spinal cord lesions - and lastly, the scarcity of labeled 
-  datasets required to develop robust segmentation tools. As a result, automatic segmentation of spinal cord MS lesions remains a significant challenge. Although some segmentation tools exist for 
-  spinal cord lesions, most have been developed using sagittal T2-weighted (T2w) sequences primarily focusing on cervical spines. With the growing importance of spinal cord imaging in MS, axial T2w 
-  scans are becoming increasingly relevant due to their superior sensitivity in detecting lesions compared to sagittal acquisition protocols. However, most existing segmentation methods struggle to 
-  effectively generalize to axial sequences due to differences in image characteristics caused by the highly anisotropic spinal cord scans. To address these challenges, we developed a robust, open-source 
-  lesion segmentation tool tailored specifically for axial T2w scans covering the whole spinal cord. We investigated key factors influencing lesion segmentation, including the impact of stitching together 
-  individually acquired spinal regions, straightening the spinal cord, and comparing the effectiveness of 2D and 3D convolutional neural networks (CNNs). Drawing on these insights, we trained a multi-center 
-  model using an extensive dataset of 582 MS patients, resulting in a dataset comprising an entirety of 2,167 scans. We empirically evaluated the model{\textquoteright}s segmentation performance across 
-  various spinal segments for lesions with varying sizes. Our model significantly outperforms the current state-of-the-art methods, providing consistent segmentation across cervical, thoracic and lumbar 
-  regions. To support the broader research community, we integrate our model into the widely-used Spinal Cord Toolbox (v7.0 and above).},
-	URL = {https://www.medrxiv.org/content/early/2025/01/23/2025.01.22.25320959},
-	pdf = {https://www.medrxiv.org/content/early/2025/01/23/2025.01.22.25320959.full.pdf},
-	journal = {medRxiv},
-  bibtex_show={true},
-  abbr={medRxiv},
-  code={https://github.com/ivadomed/model-seg-ms-axial-t2w},
-  selected={true},
-  note={*shared first authorship},
-  preview={msseg_bavaria.png}
+@article{karthik2025automatic,
+    author = {Naga Karthik*, Enamundram and McGinnis*, Julian and Wurm, Ricarda and Ruehling, Sebastian and Graf, Robert and Valosek, Jan and Benveniste, Pierre-Louis and Lauerer, Markus and Talbott, Jason and Bakshi, Rohit and Tauhid, Shahamat and Shepherd, Timothy and Berthele, Achim and Zimmer, Claus and Hemmer, Bernhard and Rueckert, Daniel and Wiestler, Benedikt and Kirschke, Jan S. and Cohen-Adad, Julien and Mühlau, Mark},
+    title = {Automatic segmentation of spinal cord lesions in MS: A robust tool for axial T2-weighted MRI scans},
+    journal = {Imaging Neuroscience},
+    volume = {3},
+    pages = {IMAG.a.45},
+    year = {2025},
+    month = {06},
+    abstract = {Deep learning models have achieved remarkable success in segmenting brain white matter lesions in multiple 
+    sclerosis (MS), becoming integral to both research and clinical workflows. While brain lesions have gained significant 
+    attention in MS research, the involvement of spinal cord lesions in MS is relatively understudied. This is largely owing 
+    to the variability in spinal cord magnetic resonance imaging (MRI) acquisition protocols, high individual anatomical 
+    differences, the complex morphology and size of spinal cord lesions, and lastly, the scarcity of labeled datasets required 
+    to develop robust segmentation tools. As a result, automatic segmentation of spinal cord MS lesions remains a significant 
+    challenge. Although some segmentation tools exist for spinal cord lesions, most have been developed using sagittal 
+    T2-weighted (T2w) sequences primarily focusing on cervical spines. With the growing importance of spinal cord imaging in 
+    MS, axial T2w scans are becoming increasingly relevant due to their superior sensitivity in detecting lesions compared to 
+    sagittal acquisition protocols. However, most existing segmentation methods struggle to effectively generalize to axial 
+    sequences due to differences in image characteristics caused by the highly anisotropic spinal cord scans. To address these 
+    challenges, we developed a robust, open-source lesion segmentation tool tailored specifically for axial T2w scans covering 
+    the whole spinal cord. We investigated key factors influencing lesion segmentation, including the impact of stitching 
+    together individually acquired spinal regions, straightening the spinal cord, and comparing the effectiveness of 2D and 3D 
+    convolutional neural networks (CNNs). Drawing on these insights, we trained a multi-center model using an extensive dataset 
+    of 582 MS patients, resulting in a dataset comprising an entirety of 2,167 scans. We empirically evaluated the model’s 
+    segmentation performance across various spinal segments for lesions with varying sizes. Our model significantly outperforms 
+    the current state-of-the-art methods, providing consistent segmentation across cervical, thoracic, and lumbar regions. 
+    To support the broader research community, we integrate our model into the widely-used Spinal Cord Toolbox (v7.0 and above),
+    making it accessible via the command sct\_deepseg lesion\_ms\_axial\_t2 -i \&lt;path-to-image.nii.gz\&gt;.},
+    issn = {2837-6056},
+    doi = {10.1162/IMAG.a.45},
+    url = {https://doi.org/10.1162/IMAG.a.45},
+    pdf = {https://direct.mit.edu/imag/article-pdf/doi/10.1162/IMAG.a.45/2528780/imag.a.45.pdf},
+    bibtex_show={true},
+    abbr={Imaging Neuroscience},
+    code={https://github.com/ivadomed/model-seg-ms-axial-t2w},
+    selected={true},
+    note={*shared first authorship},
+    preview={msseg_bavaria.png}
 }
 
 
