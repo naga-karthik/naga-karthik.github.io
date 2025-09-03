@@ -3,34 +3,346 @@
 
 @string{aps = {American Physical Society,}}
 
-@book{einstein1920relativity,
-  title={Relativity: the Special and General Theory},
-  author={Einstein, Albert},
-  year={1920},
-  publisher={Methuen & Co Ltd},
-  html={relativity.html}
+% ----------------- 2025 -----------------
+
+@misc{hindel2025dynamic,
+      title={Dynamic Robot-Assisted Surgery with Hierarchical Class-Incremental Semantic Segmentation}, 
+      author={Julia Hindel and Ema Mekic and Enamundram Naga Karthik and Rohit Mohan and Daniele Cattaneo and Maria Kalweit and Abhinav Valada},
+      year={2025},
+      eprint={2508.01713},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2508.01713}, 
+      journal = {MICCAI},
+      abstract = {Robot-assisted surgeries rely on accurate and real-time scene understanding to safely guide surgical instruments. 
+      However, segmentation models trained on static datasets face key limitations when deployed in these dynamic and evolving 
+      surgical environments. Class-incremental semantic segmentation (CISS) allows models to continually adapt to new classes while 
+      avoiding catastrophic forgetting of prior knowledge, without training on previous data. In this work, we build upon the 
+      recently introduced Taxonomy-Oriented Poincaré-regularized Incremental Class Segmentation (TOPICS) approach and propose an 
+      enhanced variant, termed TOPICS+, specifically tailored for robust segmentation of surgical scenes. Concretely, we incorporate 
+      the Dice loss into the hierarchical loss formulation to handle strong class imbalances, introduce hierarchical pseudo-labeling, 
+      and design tailored label taxonomies for robotic surgery environments. We also propose six novel CISS benchmarks designed for 
+      robotic surgery environments including multiple incremental steps and several semantic categories to emulate realistic 
+      class-incremental settings in surgical environments. In addition, we introduce a refined set of labels with more than 
+      144 classes on the Syn-Mediverse synthetic dataset, hosted online as an evaluation benchmark. We make the code and trained 
+      models publicly available.},
+      bibtex_show={true},
+      abbr={MICCAI},
+      code={https://topics.cs.uni-freiburg.de},
+      pdf={https://arxiv.org/pdf/2508.01713},
+      selected={false},
+      google_scholar_id={YOwf2qJgpHMC},
+      preview={lifelong_ca_final.png}
 }
 
-@book{einstein1956investigations,
-  bibtex_show={true},
-  title={Investigations on the Theory of the Brownian Movement},
-  author={Einstein, Albert},
-  year={1956},
-  publisher={Courier Corporation},
-  preview={brownian-motion.gif}
+@article{karthik2025monitoringmorphometricdriftlifelong,
+      title={Monitoring morphometric drift in lifelong learning segmentation of the spinal cord}, 
+      author={Enamundram Naga Karthik and Sandrine Bédard and Jan Valošek and Christoph S. Aigner and Elise Bannier and Josef Bednařík and Virginie Callot and 
+      Anna Combes and Armin Curt and Gergely David and Falk Eippert and Lynn Farner and Michael G Fehlings and Patrick Freund and Tobias Granberg and 
+      Cristina Granziera and RHSCIR Network Imaging Group and Ulrike Horn and Tomáš Horák and Suzanne Humphreys and Markus Hupp and Anne Kerbrat and Nawal Kinany and 
+      Shannon Kolind and Petr Kudlička and Anna Lebret and Lisa Eunyoung Lee and Caterina Mainero and Allan R. Martin and Megan McGrath and Govind Nair and 
+      Kristin P. O'Grady and Jiwon Oh and Russell Ouellette and Nikolai Pfender and Dario Pfyffer and Pierre-François Pradat and Alexandre Prat and 
+      Emanuele Pravatà and Daniel S. Reich and Ilaria Ricchi and Naama Rotem-Kohavi and Simon Schading-Sassenhausen and Maryam Seif and Andrew Smith and 
+      Seth A Smith and Grace Sweeney and Roger Tam and Anthony Traboulsee and Constantina Andrada Treaba and Charidimos Tsagkas and Zachary Vavasour and Dimitri Van De Ville 
+      and Kenneth Arnold Weber II and Sarath Chandar and Julien Cohen-Adad},
+      year={2025},
+      eprint={2505.01364},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2505.01364},
+      journal = {arXiv},
+      abstract = {
+        Morphometric measures derived from spinal cord segmentations can serve as diagnostic and prognostic biomarkers in neurological diseases and injuries affecting 
+        the spinal cord. While robust, automatic segmentation methods to a wide variety of contrasts and pathologies have been developed over the past few years, whether 
+        their predictions are stable as the model is updated using new datasets has not been assessed. This is particularly important for deriving normative values from 
+        healthy participants. In this study, we present a spinal cord segmentation model trained on a multisite (n=75) dataset, including 9 different MRI contrasts and 
+        several spinal cord pathologies. We also introduce a lifelong learning framework to automatically monitor the morphometric drift as the model is updated using 
+        additional datasets. The framework is triggered by an automatic GitHub Actions workflow every time a new model is created, recording the morphometric values derived 
+        from the model's predictions over time. As a real-world application of the proposed framework, we employed the spinal cord segmentation model to update a recently-introduced 
+        normative database of healthy participants containing commonly used measures of spinal cord morphometry. Results showed that: (i) our model outperforms previous versions 
+        and pathology-specific models on challenging lumbar spinal cord cases, achieving an average Dice score of 0.95 ± 0.03; (ii) the automatic workflow for monitoring morphometric 
+        drift provides a quick feedback loop for developing future segmentation models; and (iii) the scaling factor required to update the database of morphometric measures is nearly 
+        constant among slices across the given vertebral levels, showing minimum drift between the current and previous versions of the model monitored by the framework. The model is 
+        freely available in Spinal Cord Toolbox v7.0.},
+      bibtex_show={true},
+      abbr={arXiv},
+      code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord},
+      pdf={https://arxiv.org/pdf/2505.01364},
+      selected={true},
+      google_scholar_id={KlAtU1dfN6UC},
+      preview={lifelong_ca_final.png}
 }
 
-@article{einstein1950meaning,
-  abbr={AJP},
+
+@article{karthik2025automatic,
+    author = {Naga Karthik*, Enamundram and McGinnis*, Julian and Wurm, Ricarda and Ruehling, Sebastian and Graf, Robert and Valosek, Jan and Benveniste, Pierre-Louis and Lauerer, Markus and Talbott, Jason and Bakshi, Rohit and Tauhid, Shahamat and Shepherd, Timothy and Berthele, Achim and Zimmer, Claus and Hemmer, Bernhard and Rueckert, Daniel and Wiestler, Benedikt and Kirschke, Jan S. and Cohen-Adad, Julien and Mühlau, Mark},
+    title = {Automatic segmentation of spinal cord lesions in MS: A robust tool for axial T2-weighted MRI scans},
+    journal = {Imaging Neuroscience},
+    volume = {3},
+    pages = {IMAG.a.45},
+    year = {2025},
+    month = {06},
+    abstract = {Deep learning models have achieved remarkable success in segmenting brain white matter lesions in multiple 
+    sclerosis (MS), becoming integral to both research and clinical workflows. While brain lesions have gained significant 
+    attention in MS research, the involvement of spinal cord lesions in MS is relatively understudied. This is largely owing 
+    to the variability in spinal cord magnetic resonance imaging (MRI) acquisition protocols, high individual anatomical 
+    differences, the complex morphology and size of spinal cord lesions, and lastly, the scarcity of labeled datasets required 
+    to develop robust segmentation tools. As a result, automatic segmentation of spinal cord MS lesions remains a significant 
+    challenge. Although some segmentation tools exist for spinal cord lesions, most have been developed using sagittal 
+    T2-weighted (T2w) sequences primarily focusing on cervical spines. With the growing importance of spinal cord imaging in 
+    MS, axial T2w scans are becoming increasingly relevant due to their superior sensitivity in detecting lesions compared to 
+    sagittal acquisition protocols. However, most existing segmentation methods struggle to effectively generalize to axial 
+    sequences due to differences in image characteristics caused by the highly anisotropic spinal cord scans. To address these 
+    challenges, we developed a robust, open-source lesion segmentation tool tailored specifically for axial T2w scans covering 
+    the whole spinal cord. We investigated key factors influencing lesion segmentation, including the impact of stitching 
+    together individually acquired spinal regions, straightening the spinal cord, and comparing the effectiveness of 2D and 3D 
+    convolutional neural networks (CNNs). Drawing on these insights, we trained a multi-center model using an extensive dataset 
+    of 582 MS patients, resulting in a dataset comprising an entirety of 2,167 scans. We empirically evaluated the model’s 
+    segmentation performance across various spinal segments for lesions with varying sizes. Our model significantly outperforms 
+    the current state-of-the-art methods, providing consistent segmentation across cervical, thoracic, and lumbar regions. 
+    To support the broader research community, we integrate our model into the widely-used Spinal Cord Toolbox (v7.0 and above),
+    making it accessible via the command sct\_deepseg lesion\_ms\_axial\_t2 -i \&lt;path-to-image.nii.gz\&gt;.},
+    issn = {2837-6056},
+    doi = {10.1162/IMAG.a.45},
+    url = {https://doi.org/10.1162/IMAG.a.45},
+    pdf = {https://direct.mit.edu/imag/article-pdf/doi/10.1162/IMAG.a.45/2528780/imag.a.45.pdf},
+    bibtex_show={true},
+    abbr={Imaging Neuroscience},
+    code={https://github.com/ivadomed/model-seg-ms-axial-t2w},
+    google_scholar_id={5nxA0vEk-isC},
+    selected={true},
+    note={*shared first authorship},
+    preview={msseg_bavaria.png}
+}
+
+
+@article{BEDARD2025103473,
+  title = {Towards contrast-agnostic soft segmentation of the spinal cord},
+  journal = {Medical Image Analysis},
+  volume = {101},
+  pages = {103473},
+  year = {2025},
+  issn = {1361-8415},
+  doi = {https://doi.org/10.1016/j.media.2025.103473},
+  url = {https://www.sciencedirect.com/science/article/pii/S1361841525000210},
+  author = {Sandrine Bédard* and Naga Karthik*, Enamundram and Charidimos Tsagkas and Emanuele Pravatà and Cristina Granziera and Andrew Smith and Kenneth Arnold {Weber II} and Julien Cohen-Adad},
+  keywords = {Spinal cord, MRI, Contrasts, Segmentation, Deep learning, Soft labels, Partial volume effect},
+  abstract = {
+  Spinal cord segmentation is clinically relevant and is notably used to compute spinal cord cross-sectional area (CSA) 
+  for the diagnosis and monitoring of cord compression or neurodegenerative diseases such as multiple sclerosis. While 
+  several semi and automatic methods exist, one key limitation remains: the segmentation depends on the MRI contrast, 
+  resulting in different CSA across contrasts. This is partly due to the varying appearance of the boundary between the 
+  spinal cord and the cerebrospinal fluid that depends on the sequence and acquisition parameters. This contrast-sensitive 
+  CSA adds variability in multi-center studies where protocols can vary, reducing the sensitivity to detect subtle atrophies. 
+  Moreover, existing methods enhance the CSA variability by training one model per contrast, while also producing binary masks 
+  that do not account for partial volume effects. In this work, we present a deep learning-based method that produces soft 
+  segmentations of the spinal cord that are stable across MRI contrasts. Using the Spine Generic Public Database of healthy 
+  participants (n=267; contrasts=6), we first generated participant-wise soft ground truth (GT) by averaging the binary 
+  segmentations across all 6 contrasts. These soft GT, along with aggressive data augmentation and a regression-based loss 
+  function, were then used to train a U-Net model for spinal cord segmentation. We evaluated our model against state-of-the-art 
+  methods and performed ablation studies involving different GT mask types, loss functions, contrast-specific models and 
+  domain generalization methods. Our results show that using the soft average segmentations along with a regression loss 
+  function reduces CSA variability (p<0.05, Wilcoxon signed-rank test). The proposed spinal cord segmentation model generalizes 
+  better than the state-of-the-art contrast-specific methods amongst unseen datasets, vendors, contrasts, and pathologies 
+  (compression, lesions), while accounting for partial volume effects. Our model is integrated into the Spinal Cord Toolbox (v6.2 and higher).},
   bibtex_show={true},
-  title={The meaning of relativity},
-  author={Einstein, Albert and Taub, AH},
-  journal={American Journal of Physics},
-  volume={18},
-  number={6},
-  pages={403--404},
-  year={1950},
-  publisher={American Association of Physics Teachers}
+  abbr={MedIA},
+  pdf={https://www.sciencedirect.com/science/article/pii/S1361841525000210},
+  code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord},
+  google_scholar_id={Tyk-4Ss8FVUC},
+  selected={true},
+  note={*shared first authorship},
+  preview={contrast_agnostic_v2.jpg}
+}
+
+
+% ----------------- 2024 -----------------
+
+@article{doi:10.1148/ryai.240005,
+  author = {Naga Karthik*, Enamundram and Valo\v{s}ek*, Jan and Smith, Andrew C. and Pfyffer, Dario and Schading-Sassenhausen, Simon and Farner, Lynn and Weber, Kenneth A. and Freund, Patrick and Cohen-Adad, Julien},
+  title = {SCIseg: Automatic Segmentation of Intramedullary Lesions in Spinal Cord Injury on T2-weighted MRI Scans},
+  journal = {Radiology: Artificial Intelligence},
+  volume = {7},
+  number = {1},
+  pages = {e240005},
+  year = {2025},
+  note={*shared first authorship},
+  abstract = { 
+  Purpose: To develop a deep learning tool for the automatic segmentation of the spinal cord and 
+  intramedullary lesions in spinal cord injury (SCI) on T2-weighted MRI scans. 
+  Materials and Methods: This retrospective study included MRI data acquired between July 2002 and 
+  February 2023. The data consisted of T2-weighted MRI scans acquired using different scanner manufacturers 
+  with various image resolutions (isotropic and anisotropic) and orientations (axial and sagittal). 
+  Patients had different lesion etiologies (traumatic, ischemic, and hemorrhagic) and lesion locations 
+  across the cervical, thoracic, and lumbar spine. A deep learning model, SCIseg (which is open source and 
+  accessible through the Spinal Cord Toolbox, version 6.2 and above), was trained in a three-phase process 
+  involving active learning for the automatic segmentation of intramedullary SCI lesions and the spinal cord. 
+  The segmentations from the proposed model were visually and quantitatively compared with those from three 
+  other open-source methods (PropSeg, DeepSeg, and contrast-agnostic, all part of the Spinal Cord Toolbox). 
+  The Wilcoxon signed rank test was used to compare quantitative MRI biomarkers of SCI (lesion volume, 
+  lesion length, and maximal axial damage ratio) derived from the manual reference standard lesion masks and 
+  biomarkers obtained automatically with SCIseg segmentations. 
+  Results: The study included 191 patients with SCI (mean age, 48.1 years ± 17.9 [SD]; 142 [74\%] male patients). 
+  SCIseg achieved a mean Dice score of 0.92 ± 0.07 and 0.61 ± 0.27 for spinal cord and SCI lesion 
+  segmentation, respectively. There was no evidence of a difference between lesion length (P = .42) and 
+  maximal axial damage ratio (P = .16) computed from manually annotated lesions and the lesion segmentations 
+  obtained using SCIseg. 
+  Conclusion: SCIseg accurately segmented intramedullary lesions on a diverse 
+  dataset of T2-weighted MRI scans and automatically extracted clinically relevant lesion characteristics. 
+  Keywords: Spinal Cord, Trauma, Segmentation, MR Imaging, Supervised Learning, 
+  Convolutional Neural Network (CNN) Published under a CC BY 4.0 license. },
+  bibtex_show={true},
+  abbr={Radiology: AI},
+  selected={true},
+  pdf={https://doi.org/10.1148/ryai.240005},
+  code={https://github.com/ivadomed/model_seg_sci/},
+  google_scholar_id={8k81kl-MbHgC},
+  preview={sciseg.jpeg},
+}
+
+@inproceedings{karthik2024contrastagnostic,
+  title={Contrast-agnostic Spinal Cord Segmentation: A Comparative Study of ConvNets and Vision Transformers},
+  author={Enamundram Naga Karthik and Sandrine Bedard and Jan Valosek and Sarath Chandar and Julien Cohen-Adad},
+  booktitle={Medical Imaging with Deep Learning},
+  year={2024},
+  url={https://openreview.net/forum?id=n6D25aqdV3},
+  abstract={
+  The cross-sectional area (CSA) of the spinal cord (SC) computed from its segmentation is a relevant 
+  clinical biomarker for the diagnosis and monitoring of cord compression and atrophy. One key limitation 
+  of existing automatic methods is that their SC segmentations depend on the MRI contrast, resulting in 
+  different CSA across contrasts. Furthermore, these methods rely on CNNs, leaving a gap in the literature 
+  for exploring the performance of modern deep learning (DL) architectures. In this study, we extend our 
+  recent work \cite{Bdard2023TowardsCS} by evaluating the contrast-agnostic SC segmentation capabilities 
+  of different classes of DL architectures, namely, ConvNeXt, vision transformers (ViTs), and hierarchical 
+  ViTs. We compared 7 different DL models using the open-source \textit{Spine Generic} Database of healthy 
+  participants () consisting of 6 MRI contrasts per participant. Given a fixed dataset size, our results 
+  show that CNNs produce robust SC segmentations across contrasts, followed by ConvNeXt, and hierarchical 
+  ViTs. This suggests that: (i) inductive biases such as learning hierarchical feature reprensentations 
+  via pooling (common in CNNs) are crucial for good performance on SC segmentation, and (ii) hierarchical 
+  ViTs that incorporate several CNN-based priors can perform similarly to pure CNN-based models.},
+  google_scholar_id={},
+  bibtex_show={true},
+  abbr={MIDL Short},
+  selected={false},
+  pdf={https://openreview.net/forum?id=n6D25aqdV3},
+  code={https://github.com/sct-pipeline/contrast-agnostic-softseg-spinalcord/tree/nk/midl-short},
+}
+
+
+% ----------------- 2023 -----------------
+
+@ARTICLE{10086579,
+  author={Naga Karthik, Enamundram and Cheriet, Farida and Laporte, Catherine},
+  journal={IEEE Open Journal of Engineering in Medicine and Biology}, 
+  title={Uncertainty Estimation in Unsupervised MR-CT Synthesis of Scoliotic Spines}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-7},
+  abstract={
+  Uncertainty estimations through approximate Bayesian inference provide interesting insights to deep neural networks' behavior. 
+  In unsupervised learning tasks, where expert labels are unavailable, it becomes ever more important to critique the model through 
+  uncertainties. This paper presents a proof-of-concept for generalizing the aleatoric and epistemic uncertainties in unsupervised 
+  MR-CT synthesis of scoliotic spines. A novel adaptation of the cycle-consistency constraint in CycleGAN is proposed such that the 
+  model predicts the aleatoric uncertainty maps in addition to the standard volume-to-volume translation between Magnetic Resonance 
+  (MR) and Computed Tomography (CT) data. Ablation experiments were performed to understand uncertainty estimation as an implicit 
+  regularizer and a measure of the model's confidence. The aleatoric uncertainty helps in distinguishing between the bone and soft-tissue 
+  regions in CT and MR data during translation, while the epistemic uncertainty provides interpretable information to the user for downstream tasks.},
+  doi={https://doi.org/10.1109/OJEMB.2023.3262965},
+  pdf={https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10086579},
+  code={https://github.com/naga-karthik/3D-CycleGAN-with-Uncertainty},
+  selected={false},
+  bibtex_show={true},
+  abbr={IEEE OJEMB},
+  preview={ojemb_uncertainty_scoliosis.jpg}
+}
+
+% ----------------- 2022 -----------------
+
+@article{melba:2022:031:lemay,
+    title = "Label fusion and training methods for reliable representation of inter-rater uncertainty",
+    author = "Lemay, Andreanne and Gros, Charley and Naga Karthik, Enamundram and Cohen-Adad, Julien",
+    journal = "Machine Learning for Biomedical Imaging",
+    volume = "1",
+    issue = "January 2023 issue",
+    year = "2022",
+    pages = "1--27",
+    issn = "2766-905X",
+    abstract = "Medical tasks are prone to inter-rater variability due to multiple factors such as image quality, professional experience and training, 
+    or guideline clarity. Training deep learning networks with annotations from multiple raters is a common practice that mitigates the model’s bias 
+    towards a single expert. Reliable models generating calibrated outputs and reflecting the inter-rater disagreement are key to the integration of 
+    artificial intelligence in clinical practice. Various methods exist to take into account different expert labels. We focus on comparing three label 
+    fusion methods: STAPLE, average of the rater’s segmentation, and random sampling of each rater’s segmentation during training. Each label fusion method 
+    is studied using both the conventional training framework and the recently published SoftSeg framework that limits information loss by treating the segmentation 
+    task as a regression. Our results, across 10 data splittings on two public datasets (spinal cord gray matter challenge, and multiple sclerosis brain lesion 
+    segmentation), indicate that SoftSeg models, regardless of the ground truth fusion method, had better calibration and preservation of the inter-rater rater 
+    variability compared with their conventional counterparts without impacting the segmentation performance. Conventional models, i.e., trained with a Dice loss, 
+    with binary inputs, and sigmoid/softmax final activate, were overconfident and underestimated the uncertainty associated with inter-rater variability. Conversely, 
+    fusing labels by averaging with the SoftSeg framework led to underconfident outputs and overestimation of the rater disagreement. In terms of segmentation performance, 
+    the best label fusion method was different for the two datasets studied, indicating this parameter might be task-dependent. However, SoftSeg had segmentation 
+    performance systematically superior or equal to the conventionally trained models and had the best calibration and preservation of the inter-rater variability. 
+    SoftSeg has a low computational cost and performed similarly in terms of uncertainty to ensembles which require multiple models and forward passes. 
+    Our code is available at https://ivadomed.org.",
+    doi = "https://doi.org/10.59275/j.melba.2022-db5c",
+    url = "https://melba-journal.org/2022:031",
+    pdf={https://www.melba-journal.org/pdf/2022:031.pdf},
+    selected={true},
+    bibtex_show={true},
+    google_scholar_id={zYLM7Y9cAGgC},
+    abbr={MELBA},
+    preview={melba_uncertainty_softseg.png}
+}
+
+
+@article{nagakarthik2022Segmentation,
+    bibtex_show={true},
+    abbr={MedNeurIPS},
+    title={Segmentation of Multiple Sclerosis Lesion across Hospitals: Learn Continually or Train from Scratch?},
+    author={Naga Karthik, Enamundram and Kerbrat, Anne and Labauge, Pierre and Granberg, Tobias and Talbott, Jason and Reich, Daniel S and Filippi, Massimo and Bakshi, Rohit and Callot, Virginie and Chandar, Sarath and Cohen-Adad, Julien},
+    journal={MedNeurIPS: Medical Imaging Meets NeurIPS Workshop},
+    year={2022},
+    url="https://arxiv.org/pdf/2210.15091.pdf",
+    pdf={https://arxiv.org/pdf/2210.15091.pdf},
+    code={https://github.com/naga-karthik/continual-learning-ms},
+    google_scholar_id={qjMakFHDy7sC},
+}
+
+% ----------------- 2021 -----------------
+
+@inproceedings{10.1117/12.2580677,
+bibtex_show={true},
+abbr={SPIE},
+author = {Enamundram M. V. Naga Karthik and Catherine Laporte and Farida Cheriet},
+title = {{Three-dimensional segmentation of the scoliotic spine from MRI using unsupervised volume-based MR-CT synthesis}},
+volume = {11596},
+booktitle = {Medical Imaging 2021: Image Processing},
+editor = {Ivana Išgum and Bennett A. Landman},
+organization = {International Society for Optics and Photonics},
+publisher = {SPIE},
+pages = {115961H},
+keywords = {Vertebrae segmentation , Scoliosis , Cross-modality synthesis, Volume translation , 3D CycleGAN},
+year = {2021},
+doi = {10.1117/12.2580677},
+URL = {https://doi.org/10.1117/12.2580677},
+pdf={https://arxiv.org/pdf/2011.14005.pdf},
+google_scholar_id={},
+}
+
+% ----------------- 2020 -----------------
+@article{doi:10.1121/10.0000891,
+bibtex_show={true},
+abbr={JASA},
+author = {Naga Karthik,Enamundram M. V.  and Karimi,Elham  and Lulich,Steven M.  and Laporte,Catherine },
+title = {Automatic tongue surface extraction from three-dimensional ultrasound vocal tract images},
+journal = {The Journal of the Acoustical Society of America},
+volume = {147},
+number = {3},
+pages = {1623-1633},
+year = {2020},
+doi = {10.1121/10.0000891},
+URL = {https://doi.org/10.1121/10.0000891},
+eprint = {https://doi.org/10.1121/10.0000891},
+google_scholar_id={u5HHmVD_uO8C},
 }
 
 @article{PhysRev.47.777,
@@ -57,59 +369,6 @@
   video={https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ},
   additional_info={. *More Information* can be [found here](https://github.com/alshedivat/al-folio/)},
   annotation={* Example use of superscripts<br>† Albert Einstein},
-  selected={true},
+  selected={false},
   inspirehep_id = {3255}
-}
-
-@article{einstein1905molekularkinetischen,
-  title={{\"U}ber die von der molekularkinetischen Theorie der W{\"a}rme geforderte Bewegung von in ruhenden Fl{\"u}ssigkeiten suspendierten Teilchen},
-  author={Einstein, A.},
-  journal={Annalen der physik},
-  volume={322},
-  number={8},
-  pages={549--560},
-  year={1905},
-  publisher={Wiley Online Library}
-}
-
-@article{einstein1905movement,
-  abbr={Ann. Phys.},
-  title={Un the movement of small particles suspended in statiunary liquids required by the molecular-kinetic theory 0f heat},
-  author={Einstein, A.},
-  journal={Ann. Phys.},
-  volume={17},
-  pages={549--560},
-  year={1905}
-}
-
-@article{einstein1905electrodynamics,
-  title={On the electrodynamics of moving bodies},
-  author={Einstein, A.},
-  year={1905}
-}
-
-@Article{einstein1905photoelectriceffect,
-  bibtex_show={true},
-  abbr={Ann. Phys.},
-  title="{{\"U}ber einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt}",
-  author={Albert Einstein},
-  abstract={This is the abstract text.},
-  journal={Ann. Phys.},
-  volume={322},
-  number={6},
-  pages={132--148},
-  year={1905},
-  doi={10.1002/andp.19053220607},
-  award={Albert Einstein receveid the **Nobel Prize in Physics** 1921 *for his services to Theoretical Physics, and especially for his discovery of the law of the photoelectric effect*},
-  award_name={Nobel Prize}
-}
-
-@book{przibram1967letters,
-  bibtex_show={true},
-  title={Letters on wave mechanics},
-  author={Einstein, Albert and Schrödinger, Erwin and Planck, Max and Lorentz, Hendrik Antoon and Przibram, Karl},
-  year={1967},
-  publisher={Vision},
-  preview={wave-mechanics.gif},
-  abbr={Vision}
 }
