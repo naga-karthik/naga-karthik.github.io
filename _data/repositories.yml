@@ -1,14 +1,11 @@
 github_users:
-  - torvalds
-  - alshedivat
-
-repo_description_lines_max: 2
+  - naga-karthik
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  - sct-pipeline/contrast-agnostic-softseg-spinalcord
+  - ivadomed/model_seg_sci
+  - ivadomed/utilities
+  - brainhack-school2023/nagakarthik_project
+  - naga-karthik/continual-learning-ms
+  - naga-karthik/3D-CycleGAN-with-Uncertainty
+  - naga-karthik/regression-uncertainty-demo
