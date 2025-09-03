@@ -1,9 +1,21 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
+"Imaging Neuroscience":
+  url: https://direct.mit.edu/imag
+  color: "#4daf4a" # light green 
 
-"PhysRev":
-  url: https://journals.aps.org/
+"MedIA":
+  url: https://www.sciencedirect.com/journal/medical-image-analysis
+  color: "#004d00" # dark green 
 
-"Vision":
-  color: "#009f36"
+"Radiology: AI":
+  url: https://pubs.rsna.org/journal/ai
+  color: "#ab7343"
+
+"medRxiv":
+  url: https://www.medrxiv.org/
+  # blue
+  color: "#003DA5"
+
+"arXiv":
+  url: https://arxiv.org/
+  # red
+  color: "#b31b1b"
