@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-keeping-up-with-research",
+        },{id: "post-what-statistical-tests-should-i-perform",
+        
+          title: "What Statistical Tests Should I Perform?",
+        
+        description: "A guide to choosing the right statistical tests for your next paper.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/what-statistical-tests/";
+          
+        },
+      },{id: "post-keeping-up-with-research",
         
           title: "Keeping up with research",
         
