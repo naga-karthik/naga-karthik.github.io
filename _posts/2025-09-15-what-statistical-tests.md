@@ -5,7 +5,7 @@ title: What Statistical Tests Should I Perform?
 description: A guide to choosing the right statistical tests for your next paper.
 tags: statistics
 categories: resources
-giscus_comments: false
+giscus_comments: true
 featured: false
 mermaid:
   enabled: true
@@ -37,17 +37,21 @@ Here's a flowchart on the most common types of tests depending on the type of th
 
 ### Definitions
 
+#### Basic
+
+- 
+
 #### Outcome (dependent) variable types
 
-- **Continuous variables** 📏: Think measuring tape. Continuous variables represent values that can be measured on a continuous scale. Their values are not restricted to separate, distinct numbers. For example:
+- **Continuous variables**: Think measuring tape. Continuous variables represent values that can be measured on a continuous scale. Their values are not restricted to separate, distinct numbers. For example:
   - Performance metrics such as the F1-score, MSE; values whose range lies between 0-1. 
   - Features such as a person's height, average temperature, etc. 
 
-- **Categorical variables** 🗂️: Think groups or labeled buckets. Categorical variables only take on a limited set of values, assigning each data point to a particular group. There are two types of variables: (i) **Nominal**: categories have _no_ intrinsic order (e.g. car, bus, plane), and (ii) **Ordinal**: categories have a meaniningful order (e.g. rating something as `good`, `okay`, `bad`, or, levels of difficulty, etc.). A few examples of categorial variables:
+- **Categorical variables**: Think groups or labeled buckets. Categorical variables only take on a limited set of values, assigning each data point to a particular group. There are two types of variables: (i) **Nominal**: categories have _no_ intrinsic order (e.g. car, bus, plane), and (ii) **Ordinal**: categories have a meaniningful order (e.g. rating something as `good`, `okay`, `bad`, or, levels of difficulty, etc.). A few examples of categorial variables:
   - Model prediction as `Spam`/`Not spam`, or, classification of a bacterium as `Resistant`/`Susceptible` against a specific antibiotic.
   - Features such as grading of a tumor on a scale of 1-4 (note: this is ordinal), or, a person's blood type (A, B, AB, O; note: this is nominal). 
 
-- **Survival variables** ⏳: Think an hourglass. A survival variable is a unique type of data that has two parts: (i) a measure of time until a specific event occurs, and (ii) an indicator of whether the event has occurred or if the observation period ended before the event could happen (this is called censoring). A few examples:
+- **Survival variables**: Think an hourglass. A survival variable is a unique type of data that has two parts: (i) a measure of time until a specific event occurs, and (ii) an indicator of whether the event has occurred or if the observation period ended before the event could happen (this is called censoring). A few examples:
   - Time until a patient relapses after treatment, with some patients still being disease-free at the end of the study (censored data).
   - Time until a machine fails, with some machines still operational at the end of the observation period (censored data).
 
@@ -61,10 +65,11 @@ Here's a flowchart on the most common types of tests depending on the type of th
 
 - **Independent samples**: They refer to the samples that are _not_ related to each other. For example, say we have a large test dataset and we create non-overlapping sub-test sets from it. Then, evaluating models A, B, and C on these different sub-test sets will give us independent samples. 
 
-- **Parametric**: This class of tests assume that the data follows a normal distribution. Normality of the data can be tested using D'Agostino and Pearson's test, Shapiro-Wilk test, etc. If the p-value from these tests is greater than a significance level (typically 0.05), meaning that the null hypothesis ($H_0$; stating that the data is normally distributed) is not rejected, then we can assume that the data is normally distributed and we can use parametric tests.
+- **Parametric**: This class of tests assume that the data follows some "known" distribution (most commonly the normal distribution) and are based on the parameters like the mean and standard deviation. Normality of the data can be tested using D'Agostino and Pearson's test, Shapiro-Wilk test, etc. If the p-value from these tests is greater than a significance level (typically 0.05), meaning that the null hypothesis ($H_0$; stating that the data is normally distributed) is _not_ rejected. This implies that we don't have enough evidence to conclude that the data are not normally distributed, but know that the data lack a significant deviation from the normal distribution (hence enabling the use of parametric tests).  
 
-- **Non-parametric**: This class of tests do not assume that the data follow a normal distribution. They are typically used when the data is not normally distributed or when the sample size is small (typically less than 30 per group).
+- **Non-parametric**: This class of tests do not assume that the data follow a normal distribution. They are typically used when the data is not normally distributed or when the sample size is small (typically less than 30 per group). 
 
+[Statistics How To](https://www.statisticshowto.com/probability-and-statistics/statistics-definitions/) is more extensive in terms of the definitions covered. Do check it out!
 
 #### Errors in hypothesis testing
 
@@ -109,13 +114,13 @@ print(f"Model B normality: {is_b_normal}, p-value: {p_value_b}")
 # If p <= alpha, we reject the null hypothesis --> data is not normally distributed --> non-parametric
 ```
 
-Based on the normality tests, we now know whether to choose from parametric or non-paramtric tests. Continuing the example from the scenario mentioned above, say there are more than 2 groups (i.e. we're comparing more than 2 methods) and the test indicates that there is a significant difference between the groups. How do we know which groups are different from each other? This is where post-hoc tests come into play.
+Based on the normality tests, we now know whether to choose from parametric or non-parametric tests. More detailed definitions with examples can be found [here](https://www.mayo.edu/research/documents/parametric-and-nonparametric-demystifying-the-terms/doc-20408960). Continuing the example from the scenario mentioned above, say there are more than 2 groups (i.e. we're comparing more than 2 methods) and the test indicates that there is a significant difference between the groups. How do we know which groups are different from each other? This is where post-hoc tests come into play.
 
 #### Post-hoc tests
 
-_Post-hoc_ is a Latin term that means "after this". Post-hoc tests are additional tests performed after an initial statistical test (like ANOVA or Friedman test) to determine which specific groups are different from each other. They help to identify where the differences lie when the initial test indicates that there is a significant difference among the groups. More concretely, say we have three models A, B, and C and we perform a Friedman test (non-parametric) to compare their performance on a fixed test set. The test gives a p-value of 0.02 (which is significant!). But, we don't know which pairs of models are significantly different from each other (i.e. A vs. B, A vs. C, B vs. C). Therefore, we perform post-hoc tests, which involve multiple pairwise comparisons between the groups to identify which specific pairs of groups have significant differences in their means or distributions. Some common post-hoc tests include:
+_Post-hoc_ is a Latin term that means "after this". [Post-hoc tests](https://www.statisticshowto.com/probability-and-statistics/statistics-definitions/post-hoc/) are additional tests performed after an initial statistical test (like ANOVA or Friedman test) to determine which specific groups are different from each other. They help to identify where the differences lie when the initial test indicates that there is a significant difference among the groups. More concretely, say we have three models A, B, and C and we perform a Friedman test (non-parametric) to compare their performance on a fixed test set. The test gives a p-value of 0.02 (which is significant!). But, we don't know which pairs of models are significantly different from each other (i.e. A vs. B, A vs. C, B vs. C). Therefore, we perform post-hoc tests, which involve multiple pairwise comparisons between the groups to identify which specific pairs of groups have significant differences in their means or distributions. Some common post-hoc tests include:
 - **Tukey's HSD (Honestly Significant Difference) test**: used after ANOVA to find means that are significantly different from each other.
-- **Bonferroni correction**: adjusts the significance level when multiple pairwise tests are performed to control the overall Type I error rate.
+- **Bonferroni correction**: adjusts the significance level when multiple pairwise tests are performed to control the overall Type I error rate. This correction limits the possibility of getting a statistically significant result because, the more tests we run, the more likely we are to get a significant result. The correction essentially lowers the area where we can reject the null hypothesis by adjusting the alpha according to the number of tests. For e.g. after Bonferroni correction, $$\alpha_{\textrm{new}} = \alpha_{\textrm{old}} / N$$, where $N$ is the number of tests or number of comparisons.
 - **Dunn's test**: non-parametric post-hoc test used after the Kruskal-Wallis test or Friedman test. 
 
 Here's a short code example on performing Dunn's post-hoc test:
@@ -180,10 +185,16 @@ Say you have three models (A, B, C) and you want to compare their predictions (a
 
 ### General Notes and Common Pitfalls
 
-#### Why use post-hoc tests when we can do multiple pairwise tests?
-
-When comparing multiple groups, performing multiple pairwise tests (e.g., multiple t-tests) can lead to an increased risk of Type I errors (false positives). This is because each test has its own significance level (alpha), and when you perform multiple tests, the overall chance of making at least one Type I error increases. Post-hoc tests are designed to control for this increased risk by adjusting the significance levels or using specific procedures that account for the number of comparisons being made. This helps to maintain the overall Type I error rate at a desired level (e.g., 0.05) across all comparisons.
-
 #### Choosing significance level (alpha)
 
 A good significance level balances the risks of false positives and false negatives. Choosing the right significance level depends on the context and the consequence of the errors. A significance level of 5% is more commonly used than that of 1% which is more conservative and used only in safety-critical applications like medicine. 
+
+#### Ignoring the multiple comparisons problem
+
+When we have 3 or more groups to compare, running multiple pairwise tests (i.e. A vs. B, A vs. C, B vs. C) should _not_ be done as multiple comparisons increase the chance of getting a "significant" result purely by luck. As each test has its own significance level (alpha), the overall chance of getting a false positive increases with multiple comparisons. Therefore, in this scenario, it is recommended to run a Friedman test or repeated measures ANOVA, and if it is significant, then only run post hoc tests to find specific differences between groups. 
+
+
+
+I only focused on examples of contiguous and categorical variables in this post because those are what I came across most often. I will update this post with examples of survival variables and their tests in the future. 
+
+Thanks to Kalum Ost, Jan Valošek, Pierre-Louis Benveniste, and Gemini 2.5 Pro for their suggestions on the drafts of this post.
