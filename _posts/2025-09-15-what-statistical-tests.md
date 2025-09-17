@@ -37,10 +37,6 @@ Here's a flowchart on the most common types of tests depending on the type of th
 
 ### Definitions
 
-#### Basic
-
-- 
-
 #### Outcome (dependent) variable types
 
 - **Continuous variables**: Think measuring tape. Continuous variables represent values that can be measured on a continuous scale. Their values are not restricted to separate, distinct numbers. For example:
