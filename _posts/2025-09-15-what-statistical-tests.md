@@ -28,7 +28,10 @@ Here's a flowchart on the most common types of tests depending on the type of th
 
 <d-figure>
   <img src="{{ 'assets/img/blog_pictures/stats/stats_tests_flowchart.svg' | relative_url }}" alt="A flowchart for choosing the right statistical test." class="img-fluid rounded">
-  <figcaption style="text-align: center;">A flowchart for choosing the right statistical test.</figcaption>
+  <figcaption style="text-align: center;">
+    A flowchart for choosing the right statistical test. Adapted from 
+    <a href="https://www.med.soton.ac.uk/resmethods/statisticalnotes/which_test_flow.htm" target="_blank">this source</a>.
+  </figcaption>
 </d-figure>
 
 <!-- TODO: add this to the caption of the figure -->
