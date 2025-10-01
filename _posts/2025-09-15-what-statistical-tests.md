@@ -49,6 +49,7 @@ Here's a flowchart on the most common types of tests depending on the type of th
 - **Categorical variables**: Think groups or labeled buckets. Categorical variables only take on a limited set of values, assigning each data point to a particular group. There are two types of variables: (i) **Nominal**: categories have _no_ intrinsic order (e.g. car, bus, plane), and (ii) **Ordinal**: categories have a meaniningful order (e.g. rating something as `good`, `okay`, `bad`, or, levels of difficulty, etc.). A few examples of categorial variables:
   - Model prediction as `Spam`/`Not spam`, or, classification of a bacterium as `Resistant`/`Susceptible` against a specific antibiotic.
   - Features such as grading of a tumor on a scale of 1-4 (note: this is ordinal), or, a person's blood type (A, B, AB, O; note: this is nominal). 
+  - **Note**: For categorical variables, the chart above assumes that the classes are `nominal` (i.e. ordering of the classes does not matter). But, if the classes are `ordinal` (i.e. ordering _does_ matter), then we use the same tests in the non-parametric part of continuous variables.
 
 - **Survival variables**: Think an hourglass. A survival variable is a unique type of data that has two parts: (i) a measure of time until a specific event occurs, and (ii) an indicator of whether the event has occurred or if the observation period ended before the event could happen (this is called censoring). A few examples:
   - Time until a patient relapses after treatment, with some patients still being disease-free at the end of the study (censored data).
@@ -190,8 +191,13 @@ A good significance level balances the risks of false positives and false negati
 
 #### Ignoring the multiple comparisons problem
 
-When we have 3 or more groups to compare, running multiple pairwise tests (i.e. A vs. B, A vs. C, B vs. C) should _not_ be done as multiple comparisons increase the chance of getting a "significant" result purely by luck. As each test has its own significance level (alpha), the overall chance of getting a false positive increases with multiple comparisons. Therefore, in this scenario, it is recommended to run a Friedman test or repeated measures ANOVA, and if it is significant, then only run post hoc tests to find specific differences between groups. 
+When we have 3 or more groups to compare, running multiple pairwise tests (i.e. A vs. B, A vs. C, B vs. C) should _not_ be done as multiple comparisons increase the chance of getting a "significant" result purely by luck. As each test has its own significance level (alpha), the overall chance of getting a false positive increases with multiple comparisons. Therefore, in this scenario, it is recommended to run a Friedman test or repeated measures ANOVA, and if it is significant, only then run post hoc tests to find specific differences between groups. 
 
+#### When to _not_ rely purely on p-values
+
+It is critical to note that the p-value is influenced by the sample size. Larger sample sizes increase statistical power, making it easier to detect even small, non-random effects, leading to a statistically significant result. Large sample sizes increase the ability to detect true, small effects that might otherwise be hidden by random noise. And with a large sample, the p-value becomes smaller for the same observed effect, thereby increasing the likelihood of rejecting the null hypothesis (and getting a significant result). In such cases, reporting the "Effect size" along with statistical significance can help put the results into perspective. 
+
+- [Effect Size](https://pmc.ncbi.nlm.nih.gov/articles/PMC3444174/): While p-values (statistical significance) answers the question _"is there an effect?"_, effect size answers _"how meaningful/practical is the effect?"_. The _effect_ could be difference between groups, strength of a relationship between two continous variables. [Pearson's `r`](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient]) and [Cohen's `d`](https://statisticsbyjim.com/basics/cohens-d/) are two common examples used to compute effect sizes.
 
 
 I only focused on examples of contiguous and categorical variables in this post because those are what I came across most often. I will update this post with examples of survival variables and their tests in the future. 
