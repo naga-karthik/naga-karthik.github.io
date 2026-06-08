@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I successfully defended my PhD thesis! 🎉 The recording of my thesis presentation can be found [here](https://youtu.be/WqH-G1BSpjE?si=_F7BPrV1aaHTkaQx).
+I successfully defended my PhD thesis! 🎉 [[Recording](https://youtu.be/WqH-G1BSpjE?si=_F7BPrV1aaHTkaQx)]
