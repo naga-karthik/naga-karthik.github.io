@@ -125,8 +125,11 @@ ninja.data = [{
           section: "News",},{id: "news-our-paper-dynamic-robot-assisted-surgery-with-hierarchical-class-incremental-semantic-segmentation-was-accepted-at-miccai-workshop-on-applications-of-medical-artificial-intelligence-amai-2025-in-daejon-south-korea",
           title: 'Our paper “Dynamic Robot-Assisted Surgery with Hierarchical Class-Incremental Semantic Segmentation” was accepted at...',
           description: "",
-          section: "News",},{id: "news-i-successfully-defended-my-phd-thesis-the-recording-of-my-thesis-presentation-can-be-found-here",
-          title: 'I successfully defended my PhD thesis! 🎉 The recording of my thesis presentation...',
+          section: "News",},{id: "news-i-successfully-defended-my-phd-thesis-recording",
+          title: 'I successfully defended my PhD thesis! 🎉 [Recording]',
+          description: "",
+          section: "News",},{id: "news-i-received-the-best-poster-award-for-my-work-on-using-tabular-foundation-models-for-continually-adapting-to-the-distributional-shifts-in-the-liver-transplant-waitlist-at-the-fifth-ajmera-transplant-centre-annual-research-day-poster",
+          title: 'I received the best poster award for my work on using tabular foundation...',
           description: "",
           section: "News",},{
         id: 'social-email',
